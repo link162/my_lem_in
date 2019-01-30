@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/01/29 19:57:53 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/01/30 14:14:57 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C $(LIB)
 	@$(C) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)$(LIB_N) $(INCLUDE)
+
+$(OBJ): $(OBJ_D)
 
 $(OBJ_D):
 	@mkdir -p $(OBJ_D)$(SRC_D)

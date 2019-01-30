@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 11:37:28 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/26 17:48:11 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/30 14:19:42 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 10
+# define BUFF_SIZE 99
 
 int					ft_printf(const char *format, ...);
 int					get_next_line(const int fd, char **line);
