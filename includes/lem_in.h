@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/30 14:41:51 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/31 14:25:52 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct		s_pipe
 typedef struct		s_room
 {
 	char			*name;
-	struct			*next;
+	t_pipe			*pipe;
+	struct s_room	*next;
 }					t_room;
 
 typedef struct		s_lem
@@ -32,6 +33,10 @@ typedef struct		s_lem
 	t_room			*room;
 	char			*start;
 	char			*end;
-}
+}					t_lem;
 
+t_room				*ft_create_room(char *data);
+t_pipe				*ft_create_pipe(char *data);
+void				ft_pipe_push_back(t_room *room, char *data);
+void				ft_room_push_back(t_lem *lem, char *data);
 #endif
