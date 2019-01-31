@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/31 15:24:51 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/31 18:22:55 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,11 @@ void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
 		}
 		new = new->next;
 	}
-	ft_printf("end\n");
 	if (!new)
 	{
 		ft_printf("no this room\n");
-		new = lem->room;
-		ft_printf("ants-%i\n", lem->ants);
-		while (new)
-		{
-			ft_printf("%s\n", new->name);
-			new = new->next;
-		}
-		ft_printf("try find %s to %s\n", from, to);
 		exit(1);
 	}
-	ft_printf("try find %s to %s\n", from, to);
 }
 
 void	check_pipe(char *line, t_lem *lem)
@@ -112,6 +102,7 @@ void	check_pipe(char *line, t_lem *lem)
 	ft_bzero(to, i + 1);
 	ft_strncpy(to, line, i);
 	add_pipe_to_struct(lem, from, to);
+	add_pipe_to_struct(lem, to, from);
 }
 
 void	read_data(t_lem *lem)
@@ -132,6 +123,7 @@ void	read_data(t_lem *lem)
 			ft_printf("***%s***\n", line);
 		free(line);
 	}
+
 }
 
 int main(void)
@@ -140,6 +132,7 @@ int main(void)
 
 	map_init(&lem);
 	read_data(&lem);
+
 	ft_printf("ants  - %i\n", lem.ants);
 	ft_printf("start - %s\n", lem.start);
 	ft_printf("end   - %s\n", lem.end);
