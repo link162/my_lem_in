@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/31 18:23:12 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/01 15:38:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ typedef struct		s_lem
 {
 	int				ants;
 	t_room			*room;
-	char			*start;
-	char			*end;
+	t_room			*start;
+	t_room			*end;
 }					t_lem;
 
 t_room				*ft_create_room(char *data);
 t_pipe				*ft_create_pipe(char *data);
 void				ft_pipe_push_back(t_room *room, char *data);
 void				ft_room_push_back(t_lem *lem, char *data);
+void				create_tree(t_lem *lem);
 #endif

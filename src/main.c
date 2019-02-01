@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/01/31 18:22:55 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/01 14:39:47 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,17 @@ void	check_command(char *line, t_lem *lem)
 	if (!ft_strcmp(line, "##start"))
 	{
 		get_next_line(0, &str);
-		lem->start = dup_room(str);
-		ft_room_push_back(lem, ft_strdup(lem->start));
+		lem->start = ft_create_room(dup_room(str));
+		ft_room_push_back(lem, dup_room(str));
 		free(str);
 	}
 	else if (!ft_strcmp(line, "##end"))
 	{
 		get_next_line(0, &str);
-		lem->end = dup_room(str);
-		ft_room_push_back(lem, ft_strdup(lem->end));
+		lem->end = ft_create_room(dup_room(str));
+		ft_room_push_back(lem, dup_room(str));
 		free(str);
 	}
-}
-
-void	check_room(char *line, t_lem *lem)
-{
-	if (!lem->room)
-		lem->room = ft_create_room(dup_room(line));
-	else
-		ft_room_push_back(lem, dup_room(line));
 }
 
 void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
@@ -116,13 +108,14 @@ void	read_data(t_lem *lem)
 		else if (lem->ants == 0)
 			lem->ants = ft_atoi(line);
 		else if (ft_strchr(line, ' '))
-			check_room(line, lem);
+			ft_room_push_back(lem, dup_room(line));
 		else if (ft_strchr(line, '-'))
 			check_pipe(line, lem);
 		else
 			ft_printf("***%s***\n", line);
 		free(line);
 	}
+	create_tree(lem);
 
 }
 
@@ -132,10 +125,10 @@ int main(void)
 
 	map_init(&lem);
 	read_data(&lem);
-
+/*
 	ft_printf("ants  - %i\n", lem.ants);
-	ft_printf("start - %s\n", lem.start);
-	ft_printf("end   - %s\n", lem.end);
+	ft_printf("start - %s\n", lem.start->name);
+	ft_printf("end   - %s\n", lem.end->name);
 	t_room *new;
 	t_pipe *pipe;
 	new = lem.room;
@@ -149,5 +142,5 @@ int main(void)
 			pipe = pipe->next;
 		}
 		new = new->next;
-	}
+	}*/
 }

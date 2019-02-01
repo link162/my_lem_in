@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/01/31 13:44:56 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/01 14:20:22 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIB_N		=	libftprintf.a
 SRC_D		=	src/
 SRC			=	$(SRC_D)main.c \
 				$(SRC_D)list_function.c \
+				$(SRC_D)create_tree.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
