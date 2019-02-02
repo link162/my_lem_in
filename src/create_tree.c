@@ -47,9 +47,15 @@ void	create_tree(t_lem *lem)
 			}
 		new = new->next;
 	}
-	while (lem->start->pipe)
+	new = lem->room;
+	while (new)
 	{
-		ft_printf("$%s\n", lem->start->pipe->connect);
-		lem->start->pipe = lem->start->pipe->next;
+		if (!strcmp(new->name, lem->end->name))
+			if(new->pipe)
+			{
+				lem->end->pipe = copy_list_pipes(new->pipe);
+				break;
+			}
+		new = new->next;
 	}
 }

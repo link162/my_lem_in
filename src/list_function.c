@@ -23,6 +23,8 @@ t_room	*ft_create_room(char *data)
 		list->name = data;
 		list->next = NULL;
 		list->pipe = NULL;
+		list->nbr = -1;
+		list->put = 0;
 	}
 	return (list);
 }
@@ -70,17 +72,3 @@ void	ft_room_push_back(t_lem *lem, char *data)
 	else
 		lem->room = ft_create_room(data);
 }
-/*
-void	ft_list_push_front(t_list **begin_list, void *data)
-{
-	t_list	*list;
-
-	if (*begin_list)
-	{
-		list = ft_create_elem(data);
-		list.next = *begin_list;
-		*begin_list = list;
-	}
-	else
-		*begin_list = ft_create_elem(data);
-}*/

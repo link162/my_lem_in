@@ -22,6 +22,8 @@ typedef struct		s_pipe
 
 typedef struct		s_room
 {
+	int				nbr;
+	int				put;
 	char			*name;
 	t_pipe			*pipe;
 	struct s_room	*next;
