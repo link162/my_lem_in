@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/02/01 14:20:22 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/02 14:03:23 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC_D		=	src/
 SRC			=	$(SRC_D)main.c \
 				$(SRC_D)list_function.c \
 				$(SRC_D)create_tree.c \
+				$(SRC_D)find_index.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))

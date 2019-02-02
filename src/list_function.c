@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:08:36 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/01 14:33:03 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/02 13:51:13 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_room	*ft_create_room(char *data)
 		list->name = data;
 		list->next = NULL;
 		list->pipe = NULL;
-		list->nbr = -1;
+		list->index = -1;
 		list->put = 0;
 	}
 	return (list);

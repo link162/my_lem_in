@@ -12,7 +12,7 @@ SRC			=	$(SRC_D)ft_printf.c \
 				$(SRC_D)print_char_str.c \
 				$(SRC_D)print_hex.c \
 				$(SRC_D)print_double.c \
-				$(SRC_D)print_octal.c
+				$(SRC_D)print_octal.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
@@ -29,12 +29,12 @@ $(NAME): $(OBJ)
 	@ar -r $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
-$(OBJ): | $(OBJ_D)
+$(OBJ): $(OBJ_D)
 
 $(OBJ_D):
 	@mkdir -p $(OBJ_D)$(SRC_D)
 
-$(OBJ_D)%.o: %.c
+$(OBJ_D)%.o:%.c
 	@$(C) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:

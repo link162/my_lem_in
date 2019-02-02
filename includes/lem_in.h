@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/01 15:38:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/02 17:27:22 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct		s_pipe
 
 typedef struct		s_room
 {
-	int				nbr;
+	int				index;
 	int				put;
 	char			*name;
 	t_pipe			*pipe;
@@ -42,4 +42,8 @@ t_pipe				*ft_create_pipe(char *data);
 void				ft_pipe_push_back(t_room *room, char *data);
 void				ft_room_push_back(t_lem *lem, char *data);
 void				create_tree(t_lem *lem);
+void				map_init(t_lem *lem);
+char				*dup_room(char *str);
+void				check_command(char *line, t_lem *lem);
+void				find_index(t_lem *lem);
 #endif

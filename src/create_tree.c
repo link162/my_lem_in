@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/01 15:38:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/02 17:27:19 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,46 @@ void	create_tree(t_lem *lem)
 				break;
 			}
 		new = new->next;
+	}
+}
+
+void	map_init(t_lem *lem)
+{
+	lem->ants = 0;
+	lem->room = NULL;
+	lem->start = NULL;
+	lem->end = NULL;
+}
+
+char	*dup_room(char *str)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i] && str[i] != ' ')
+		i++;
+	res = (char *)malloc(sizeof(char) * (i + 1));
+	ft_strncpy(res, str, i);
+	return (res);
+}
+
+void	check_command(char *line, t_lem *lem)
+{
+	char *str;
+
+	if (!ft_strcmp(line, "##start"))
+	{
+		get_next_line(0, &str);
+		lem->start = ft_create_room(dup_room(str));
+		ft_room_push_back(lem, dup_room(str));
+		free(str);
+	}
+	else if (!ft_strcmp(line, "##end"))
+	{
+		get_next_line(0, &str);
+		lem->end = ft_create_room(dup_room(str));
+		ft_room_push_back(lem, dup_room(str));
+		free(str);
 	}
 }

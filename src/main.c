@@ -6,52 +6,11 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/01 14:39:47 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/02 14:05:16 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	map_init(t_lem *lem)
-{
-	lem->ants = 0;
-	lem->room = NULL;
-	lem->start = NULL;
-	lem->end = NULL;
-}
-
-char	*dup_room(char *str)
-{
-	int		i;
-	char	*res;
-
-	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
-	res = (char *)malloc(sizeof(char) * (i + 1));
-	ft_strncpy(res, str, i);
-	return (res);
-}
-
-void	check_command(char *line, t_lem *lem)
-{
-	char *str;
-
-	if (!ft_strcmp(line, "##start"))
-	{
-		get_next_line(0, &str);
-		lem->start = ft_create_room(dup_room(str));
-		ft_room_push_back(lem, dup_room(str));
-		free(str);
-	}
-	else if (!ft_strcmp(line, "##end"))
-	{
-		get_next_line(0, &str);
-		lem->end = ft_create_room(dup_room(str));
-		ft_room_push_back(lem, dup_room(str));
-		free(str);
-	}
-}
 
 void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
 {
@@ -125,7 +84,8 @@ int main(void)
 
 	map_init(&lem);
 	read_data(&lem);
-/*
+	find_index(&lem);
+
 	ft_printf("ants  - %i\n", lem.ants);
 	ft_printf("start - %s\n", lem.start->name);
 	ft_printf("end   - %s\n", lem.end->name);
@@ -141,6 +101,7 @@ int main(void)
 			ft_printf("pipe %s\n", pipe->connect);
 			pipe = pipe->next;
 		}
+		ft_printf("index -%i\n", new->index);
 		new = new->next;
-	}*/
+	}
 }
