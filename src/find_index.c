@@ -89,11 +89,10 @@ void	set_start_index(t_lem *lem)
 
 void	find_index(t_lem *lem)
 {
-	t_lem *clone;
+	t_lem clone;
 
 	lem->start->index = 0;
 	set_start_index(lem);
-	clone->room = ft_create_room(ft_strdup(lem->start->name));
-	check_index(clone, lem->room);
-
+	clone.room = ft_create_room(ft_strdup(lem->start->name));
+	check_index(&clone, lem->room);
 }

@@ -78,6 +78,7 @@ char	*dup_room(char *str)
 		i++;
 	res = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strncpy(res, str, i);
+	res[i] = '\0';
 	return (res);
 }
 

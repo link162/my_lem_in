@@ -17,7 +17,7 @@ t_room	*ft_create_room(char *data)
 	t_room	*list;
 
 	list = NULL;
-	list = malloc(sizeof(t_room));
+	list = (t_room *)malloc(sizeof(t_room));
 	if (list)
 	{
 		list->name = data;
