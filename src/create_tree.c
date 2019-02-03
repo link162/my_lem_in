@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/02 17:27:19 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/03 12:01:22 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	map_init(t_lem *lem)
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
+	lem->way= NULL;
 }
 
 char	*dup_room(char *str)

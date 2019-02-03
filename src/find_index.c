@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 12:37:39 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/02 18:06:44 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/03 13:17:47 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ t_room	*find_room(char *str, t_room *list)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	return (list);
+	ft_printf("error\n");
+	exit (1);
+	return (NULL);
 }
 
 void	remove_first_list(t_lem *clone)

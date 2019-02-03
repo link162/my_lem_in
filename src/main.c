@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/02 14:05:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/03 19:32:05 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
 	{
 		if (!ft_strcmp(new->name, from))
 		{
-			ft_pipe_push_back(new, to);
+			ft_pipe_push_back(&new->pipe, to);
 			return ;
 		}
 		new = new->next;
@@ -58,20 +58,28 @@ void	check_pipe(char *line, t_lem *lem)
 
 void	read_data(t_lem *lem)
 {
-	char *line;
+	int		i;
+	char	*line;
 
+	i = 0;
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] == '#')
 			check_command(line, lem);
-		else if (lem->ants == 0)
+		else if (lem->ants == 0 && i == 0)
+		{
 			lem->ants = ft_atoi(line);
+			i++;
+		}
 		else if (ft_strchr(line, ' '))
 			ft_room_push_back(lem, dup_room(line));
 		else if (ft_strchr(line, '-'))
 			check_pipe(line, lem);
 		else
-			ft_printf("***%s***\n", line);
+		{
+			ft_printf("error map, line \"%s\"", line);
+			exit (1);
+		}
 		free(line);
 	}
 	create_tree(lem);
@@ -118,13 +126,46 @@ void	clear_data(t_lem *lem)
 	get_next_line(-5, NULL);
 }
 
+void	check_errors(t_lem *lem)
+{
+	t_room *room;
+
+	if (lem->ants < 1)
+	{
+		ft_printf("error number of ints\n");
+		exit (1);
+	}
+	if (!lem->start)
+	{
+		ft_printf("no room start\n");
+		exit(1);
+	}
+	if (!lem->end)
+	{
+		ft_printf("no room end\n");
+		exit (1);
+	}
+	room = lem->room;
+	while (room)
+	{
+		if (!room->pipe)
+		{
+			ft_printf("room %s have no connections\n", room->name);
+			exit (1);
+		}
+		room = room->next;
+	}
+}
+
 int main(void)
 {
 	t_lem	lem;
 
 	map_init(&lem);
 	read_data(&lem);
+	check_errors(&lem);
 	find_index(&lem);
+	find_all_ways(&lem);
 	ft_printf("ants  - %i\n", lem.ants);
 	ft_printf("start - %s\n", lem.start->name);
 	ft_printf("end   - %s\n", lem.end->name);
@@ -142,6 +183,22 @@ int main(void)
 		}
 		ft_printf("index -%i\n", new->index);
 		new = new->next;
+	}
+	t_way *way;
+	way = lem.way;
+	if (!way)
+		ft_printf("no possible weys\n");
+	while (way)
+	{
+		pipe = way->pipe;
+		ft_printf("way %i from ", way->length);
+		while (pipe)
+		{
+			ft_printf("- %s ", pipe->connect);
+			pipe = pipe->next;
+		}
+		ft_printf("\n");
+		way = way->next;
 	}
 	clear_data(&lem);
 }
