@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:08:36 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 19:50:05 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/04 18:57:35 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_room	*ft_create_room(char *data)
+t_room	*ft_create_room(char *data, int x, int y)
 {
 	t_room	*list;
 
@@ -21,6 +21,8 @@ t_room	*ft_create_room(char *data)
 	if (list)
 	{
 		list->name = data;
+		list->x = x;
+		list->y = y;
 		list->next = NULL;
 		list->pipe = NULL;
 		list->index = -1;
@@ -50,9 +52,14 @@ void	ft_pipe_push_back(t_pipe **tmp, char *data)
 	list = *tmp;
 	if (list)
 	{
+		if (!ft_strcmp(data, list->connect))
+		{
+			ft_printf("find a same pipe!\n");
+			exit (1);
+		}
 		while (list->next)
 		{
-			if (!ft_strcmp(data, list->connect))
+			if (!ft_strcmp(data, list->next->connect))
 			{
 				ft_printf("find a same pipe!\n");
 				exit (1);
@@ -65,29 +72,39 @@ void	ft_pipe_push_back(t_pipe **tmp, char *data)
 		(*tmp) = ft_create_pipe(data);
 }
 
-void	ft_room_push_back(t_lem *lem, char *data)
+void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
 {
 	t_room	*list;
 
 	list = lem->room;
 	if (list)
 	{
+		if (list->x == x && list->y == y)
+		{
+			ft_printf("find a same coords!00000000000000000\n");
+			exit (1);
+		}
 		if (!ft_strcmp(data, list->name))
 		{
-			ft_printf("find a same rooms!\n");//dont work
+			ft_printf("find a same rooms!\n");
 			exit (1);
 		}
 		while (list->next)
 		{
+			if (list->next->x == x && list->next->y == y)
+			{
+				ft_printf("find a same coords!00000000000000000\n");
+				exit (1);
+			}
 			if (!ft_strcmp(data, list->next->name))
 			{
-				ft_printf("find a same rooms!\n");//dont work
+				ft_printf("find a same rooms!\n");
 				exit (1);
 			}
 			list = list->next;
 		}
-		list->next = ft_create_room(data);
+		list->next = ft_create_room(data, x, y);
 	}
 	else
-		lem->room = ft_create_room(data);
+		lem->room = ft_create_room(data, x, y);
 }

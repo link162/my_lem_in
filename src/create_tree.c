@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 12:01:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/04 17:17:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ void	create_tree(t_lem *lem)
 {
 	t_room	*new;
 
+	if (!lem->start)
+	{
+		ft_printf("no room start\n");
+		exit(1);
+	}
+	if (!lem->end)
+	{
+		ft_printf("no room end\n");
+		exit (1);
+	}
 	new = lem->room;
 	while (new)
 	{
@@ -90,15 +100,15 @@ void	check_command(char *line, t_lem *lem)
 	if (!ft_strcmp(line, "##start"))
 	{
 		get_next_line(0, &str);
-		lem->start = ft_create_room(dup_room(str));
-		ft_room_push_back(lem, dup_room(str));
+		lem->start = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+		ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
 		free(str);
 	}
 	else if (!ft_strcmp(line, "##end"))
 	{
 		get_next_line(0, &str);
-		lem->end = ft_create_room(dup_room(str));
-		ft_room_push_back(lem, dup_room(str));
+		lem->end = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+		ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
 		free(str);
 	}
 }

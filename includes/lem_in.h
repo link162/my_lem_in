@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 13:17:44 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/04 16:00:03 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct		s_room
 {
 	int				index;
 	int				put;
+	int				x;
+	int				y;
 	char			*name;
 	t_pipe			*pipe;
 	struct s_room	*next;
@@ -46,17 +48,19 @@ typedef struct		s_lem
 	t_way			*way;
 }					t_lem;
 
-t_room				*ft_create_room(char *data);
+t_room				*ft_create_room(char *data, int x, int y);
 t_pipe				*ft_create_pipe(char *data);
 t_room				*find_room(char *str, t_room *list);
 t_pipe				*copy_list_pipes(t_pipe *old);
 void				ft_pipe_push_back(t_pipe **room, char *data);
-void				ft_room_push_back(t_lem *lem, char *data);
+void				ft_room_push_back(t_lem *lem, char *data, int x, int y);
 void				create_tree(t_lem *lem);
 void				map_init(t_lem *lem);
 char				*dup_room(char *str);
 void				check_command(char *line, t_lem *lem);
 void				find_index(t_lem *lem);
 void				find_all_ways(t_lem *lem);
+int					dup_x(char *line);
+int					dup_y(char *line);
 
 #endif

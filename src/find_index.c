@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 12:37:39 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 13:17:47 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/04 16:09:40 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_index(t_lem *clone, t_room *list)
 					tmp->index = target->index + 1;
 					if (tmp->put == 0)
 					{
-						ft_room_push_back(clone, ft_strdup(tmp->name));
+						ft_room_push_back(clone, ft_strdup(tmp->name), tmp->x, tmp->y);
 						tmp->put = 2;
 					}
 				}
@@ -95,6 +95,6 @@ void	find_index(t_lem *lem)
 
 	lem->start->index = 0;
 	set_start_index(lem);
-	clone.room = ft_create_room(ft_strdup(lem->start->name));
+	clone.room = ft_create_room(ft_strdup(lem->start->name), lem->start->x, lem->start->y);
 	check_index(&clone, lem->room);
 }

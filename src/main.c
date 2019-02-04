@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 19:32:05 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/04 17:36:30 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,27 @@ void	check_pipe(char *line, t_lem *lem)
 	add_pipe_to_struct(lem, to, from);
 }
 
+int		dup_y(char *str)
+{
+	int i = 0;
+
+	while (str[i] && str[i] != ' ')
+		i++;
+	i++;
+	while (str[i] && str[i] != ' ')
+		i++;
+	return (ft_atoi(&str[i + 1]));
+}
+
+int		dup_x(char *str)
+{
+	int i = 0;
+
+	while (str[i] && str[i] != ' ')
+		i++;
+	return (ft_atoi(&str[i + 1]));
+}
+
 void	read_data(t_lem *lem)
 {
 	int		i;
@@ -72,7 +93,7 @@ void	read_data(t_lem *lem)
 			i++;
 		}
 		else if (ft_strchr(line, ' '))
-			ft_room_push_back(lem, dup_room(line));
+			ft_room_push_back(lem, dup_room(line), dup_x(line), dup_y(line));
 		else if (ft_strchr(line, '-'))
 			check_pipe(line, lem);
 		else
@@ -174,7 +195,7 @@ int main(void)
 	new = lem.room;
 	while (new)
 	{
-		ft_printf("room name -%s, connect to\n", new->name);
+		ft_printf("room name -%s, x = %i y = %i connect to\n", new->name, new->x, new->y);
 		pipe = new->pipe;
 		while (pipe)
 		{
