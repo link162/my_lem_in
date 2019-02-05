@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/04 17:36:30 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/05 11:12:42 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,88 @@ void	clear_data(t_lem *lem)
 	get_next_line(-5, NULL);
 }
 
+void	del_pipe(t_room *list, char *room, char *name)
+{
+	t_pipe *pipe;
+	t_pipe *tmp;
+
+	while (list)
+	{
+		if (!ft_strcmp(list->name, room))
+		{
+			pipe = list->pipe;
+			if (!ft_strcmp(pipe->connect, name))
+			{
+				tmp = pipe->next;
+				free(pipe->connect);
+				free(pipe);
+				list->pipe = tmp;
+				return ;
+			}
+			while (pipe->next)
+			{
+				if (!ft_strcmp(pipe->next->connect, name))
+				{
+					tmp = pipe->next->next;
+					free(pipe->next->connect);
+					free(pipe->next);
+					pipe->next = tmp;
+					return ;
+				}
+				pipe = pipe->next;
+			}
+		}
+		list = list->next;
+	}
+}
+
+int		count_pipes(t_room *room)
+{
+	int		x;
+	t_pipe	*tmp;
+
+	x = 0;
+	tmp = room->pipe;
+	while (tmp)
+	{
+		x++;
+		tmp = tmp->next;
+	}
+	return (x);
+}
+int		check_dead_ends(t_lem *lem)
+{
+	t_room	*new;
+	t_room *tmp;
+
+	new = lem->room;
+	if (count_pipes(new) == 1)
+	{
+		tmp = new->next;
+		del_pipe(lem->room, new->pipe->connect, new->name);
+		free(new->pipe->connect);
+		free(new->pipe);
+		free(lem->room);
+		lem->room = tmp;
+		return (1);
+	}
+	while (new->next)
+	{
+		if (count_pipes(new->next) == 1)
+		{
+			tmp = new->next->next;
+			del_pipe(lem->room, new->next->pipe->connect, new->next->name);
+			free(new->next->pipe->connect);
+			free(new->next->pipe);
+			free(new->next);
+			new->next = tmp;
+			return (1);
+		}
+		new = new->next;
+	}
+	return (0);
+}
+
 void	check_errors(t_lem *lem)
 {
 	t_room *room;
@@ -166,6 +248,8 @@ void	check_errors(t_lem *lem)
 		ft_printf("no room end\n");
 		exit (1);
 	}
+	while (check_dead_ends(lem))
+		;
 	room = lem->room;
 	while (room)
 	{

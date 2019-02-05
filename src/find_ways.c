@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 11:33:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/03 17:40:02 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/05 13:28:50 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,25 @@ t_pipe	*find_last_room_in_way(t_pipe *pipe)
 	return (tmp);
 }
 
-void	clone_way_and_add(t_way *way, t_way *obj, char *str, int nbr)
+void	clone_way_and_add(t_lem *lem, t_way *obj, char *str)
 {
 	t_way	*start;
 	t_pipe	*pipe;
 
-	start = way;
+	start = lem->way;
 	while (start->next)
 		start = start->next;
 	start->next = create_way();
-	start->next->length = nbr;
-	start->next->pipe = copy_list_pipes(obj->pipe);
-	pipe = start->next->pipe;
+	start = start->next;
+	start->length = obj->length;
+	start->pipe = copy_list_pipes(obj->pipe);
+	pipe = start->pipe;
 	while (pipe->next->next)
 		pipe = pipe->next;
 	free(pipe->next->connect);
-	free(pipe->next);
-	pipe->next = NULL;
-	ft_pipe_push_back(&start->next->pipe, str);
+	pipe->next->connect = str;
+	if (!ft_strcmp(str, lem->start->name))
+		start->done = 2;
 }
 
 int		find_in_list_room(t_pipe *pipe, char *str)
@@ -147,14 +148,14 @@ void	fill_way(t_lem *lem)
 		if (!find_in_list_room(road->pipe, list->connect))
 		{
 			if (i > 0)
-				clone_way_and_add(lem->way, road, ft_strdup(list->connect), road->length);
+				clone_way_and_add(lem, road, ft_strdup(list->connect));
 			else
 			{
 				ft_pipe_push_back(&road->pipe, ft_strdup(list->connect));
 				road->length++;
+				if (!ft_strcmp(list->connect, lem->start->name))
+					road->done = 1;
 			}
-			if (!ft_strcmp(list->connect, lem->start->name))
-				road->done = 1;
 			i++;
 		}
 		list = list->next;
