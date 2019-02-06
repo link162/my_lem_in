@@ -6,13 +6,19 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/04 16:00:03 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/06 13:46:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "../libftprintf/libftprintf.h"
+
+typedef struct		s_group
+{
+	int				nbr_way;
+	struct s_group	*next;
+}					t_group;
 
 typedef struct		s_pipe
 {
@@ -33,6 +39,7 @@ typedef struct		s_room
 
 typedef struct		s_way
 {
+	int				number;
 	int				done;
 	int				length;
 	t_pipe			*pipe;
@@ -41,7 +48,10 @@ typedef struct		s_way
 
 typedef struct		s_lem
 {
+	int				ways_in_group;
+	int				count_way;
 	int				ants;
+	t_group			*group;
 	t_room			*room;
 	t_room			*start;
 	t_room			*end;
@@ -60,6 +70,7 @@ char				*dup_room(char *str);
 void				check_command(char *line, t_lem *lem);
 void				find_index(t_lem *lem);
 void				find_all_ways(t_lem *lem);
+void				find_uncrossed_ways(t_lem *lem);
 int					dup_x(char *line);
 int					dup_y(char *line);
 

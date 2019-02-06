@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/05 11:12:42 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/06 15:07:22 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,8 @@ void	check_errors(t_lem *lem)
 		ft_printf("no room end\n");
 		exit (1);
 	}
-	while (check_dead_ends(lem))
-		;
+//	while (check_dead_ends(lem))
+//		;
 	room = lem->room;
 	while (room)
 	{
@@ -271,6 +271,9 @@ int main(void)
 	check_errors(&lem);
 	find_index(&lem);
 	find_all_ways(&lem);
+	if (lem.count_way > 1)
+		find_uncrossed_ways(&lem);
+
 	ft_printf("ants  - %i\n", lem.ants);
 	ft_printf("start - %s\n", lem.start->name);
 	ft_printf("end   - %s\n", lem.end->name);
@@ -296,7 +299,7 @@ int main(void)
 	while (way)
 	{
 		pipe = way->pipe;
-		ft_printf("way %i from ", way->length);
+		ft_printf("way%i length %i from ", way->number, way->length);
 		while (pipe)
 		{
 			ft_printf("- %s ", pipe->connect);
@@ -305,5 +308,15 @@ int main(void)
 		ft_printf("\n");
 		way = way->next;
 	}
+	t_group *tmp;
+	ft_printf("%i possible ways\n", lem.count_way);
+	ft_printf("%i ways in group\n", lem.ways_in_group);
+	tmp = lem.group;
+	while (tmp)
+	{
+		ft_printf("way-%i,   ", tmp->nbr_way);
+		tmp = tmp->next;
+	}
+	ft_putchar('\n');
 	clear_data(&lem);
 }

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/04 17:17:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/06 13:08:33 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,13 @@ void	create_tree(t_lem *lem)
 void	map_init(t_lem *lem)
 {
 	lem->ants = 0;
+	lem->ways_in_group = 0;
+	lem->count_way = 0;
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
 	lem->way= NULL;
+	lem->group = NULL;
 }
 
 char	*dup_room(char *str)

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 11:33:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/05 13:28:50 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/06 15:04:24 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,48 @@ void	clone_way_and_add(t_lem *lem, t_way *obj, char *str)
 		start->done = 2;
 }
 
-int		find_in_list_room(t_pipe *pipe, char *str)
+int		find_in_list_room_without_last(t_lem *lem, t_pipe *pipe, char *str)
+{
+	t_pipe	*tmp;
+	t_room	*in;
+	t_room	*out;
+
+	tmp = pipe;
+	while (pipe->next)
+	{
+		tmp = pipe;
+		if (!ft_strcmp(pipe->connect, str))
+			return (1);
+		pipe = pipe->next;
+	}
+	in = find_room(tmp->connect, lem->room);
+	out = find_room(str, lem->room);
+	if (in->index < out->index)
+		return (1);
+	return (0);
+}
+
+int		find_in_list_room(t_lem *lem, t_pipe *pipe, char *str, int i)
 {
 	t_pipe *tmp;
+	t_pipe *last;
+	t_room *in;
+	t_room *out;
 
+	if (i > 0)
+		return (find_in_list_room_without_last(lem, pipe, str));
 	tmp = pipe;
 	while (tmp)
 	{
+		last = tmp;
 		if (!ft_strcmp(tmp->connect, str))
 			return (1);
 		tmp = tmp->next;
 	}
+	in = find_room(last->connect, lem->room);
+	out = find_room(str, lem->room);
+	if (in->index < out->index)
+		return (1);
 	return (0);
 }
 
@@ -145,7 +176,7 @@ void	fill_way(t_lem *lem)
 	list = room->pipe;
 	while (list)
 	{
-		if (!find_in_list_room(road->pipe, list->connect))
+		if (!find_in_list_room(lem, road->pipe, list->connect, i))
 		{
 			if (i > 0)
 				clone_way_and_add(lem, road, ft_strdup(list->connect));
@@ -198,6 +229,19 @@ void	sort_ways(t_lem *lem)
 	}
 }
 
+int		set_numbers(t_way *way)
+{
+	int x;
+
+	x = 0;
+	while (way)
+	{
+		way->number = x++;
+		way = way->next;
+	}
+	return (x);
+}
+
 void	find_all_ways(t_lem *lem)
 {
 	lem->way = create_way();
@@ -211,4 +255,5 @@ void	find_all_ways(t_lem *lem)
 	}
 	if (lem->way->next)
 		sort_ways(lem);
+	lem->count_way = set_numbers(lem->way);
 }
