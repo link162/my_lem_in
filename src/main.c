@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 15:07:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/06 22:11:19 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,24 +262,14 @@ void	check_errors(t_lem *lem)
 	}
 }
 
-int main(void)
+void	print_s(t_lem *lem)
 {
-	t_lem	lem;
-
-	map_init(&lem);
-	read_data(&lem);
-	check_errors(&lem);
-	find_index(&lem);
-	find_all_ways(&lem);
-	if (lem.count_way > 1)
-		find_uncrossed_ways(&lem);
-
-	ft_printf("ants  - %i\n", lem.ants);
-	ft_printf("start - %s\n", lem.start->name);
-	ft_printf("end   - %s\n", lem.end->name);
 	t_room *new;
 	t_pipe *pipe;
-	new = lem.room;
+	new = lem->room;
+	ft_printf("ants  - %i\n", lem->ants);
+	ft_printf("start - %s\n", lem->start->name);
+	ft_printf("end   - %s\n", lem->end->name);
 	while (new)
 	{
 		ft_printf("room name -%s, x = %i y = %i connect to\n", new->name, new->x, new->y);
@@ -293,7 +283,7 @@ int main(void)
 		new = new->next;
 	}
 	t_way *way;
-	way = lem.way;
+	way = lem->way;
 	if (!way)
 		ft_printf("no possible weys\n");
 	while (way)
@@ -309,14 +299,44 @@ int main(void)
 		way = way->next;
 	}
 	t_group *tmp;
-	ft_printf("%i possible ways\n", lem.count_way);
-	ft_printf("%i ways in group\n", lem.ways_in_group);
-	tmp = lem.group;
+	ft_printf("%i possible ways\n", lem->count_way);
+	if (lem->ways_in_group > 0)
+	{
+	ft_printf("%i ways in group\n", lem->ways_in_group);
+	tmp = lem->group;
 	while (tmp)
 	{
 		ft_printf("way-%i,   ", tmp->nbr_way);
 		tmp = tmp->next;
 	}
 	ft_putchar('\n');
-	clear_data(&lem);
+	}
+	clear_data(lem);
+}
+
+int main(void)
+{
+	t_lem	lem;
+
+	map_init(&lem);
+	read_data(&lem);
+	check_errors(&lem);
+	find_index(&lem);
+	find_all_ways(&lem);
+	if (lem.count_way > 1)
+	{
+		find_uncrossed_ways(&lem);
+		if (lem.ways_in_group > 1)
+		{
+			if (is_shortest_way_in_group(&lem))
+				choose_group_or_shortway(&lem);
+			else
+				choose_group(&lem);
+		}
+		else
+			choose_short_way(&lem);
+	}
+	else
+		choose_short_way(&lem);
+	print_s(&lem);
 }

@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/02/06 11:59:43 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/06 17:54:02 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC			=	$(SRC_D)main.c \
 				$(SRC_D)find_index.c \
 				$(SRC_D)find_ways.c \
 				$(SRC_D)uncrossed_ways.c \
+				$(SRC_D)choose_groups_ways.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))

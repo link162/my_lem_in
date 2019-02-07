@@ -6,13 +6,21 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 13:46:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/07 17:02:42 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "../libftprintf/libftprintf.h"
+
+typedef struct		s_road
+{
+	int				ant;
+	char			*name;
+	struct s_road	*room;
+	struct s_road	*next;
+}					t_road;
 
 typedef struct		s_group
 {
@@ -62,15 +70,20 @@ t_room				*ft_create_room(char *data, int x, int y);
 t_pipe				*ft_create_pipe(char *data);
 t_room				*find_room(char *str, t_room *list);
 t_pipe				*copy_list_pipes(t_pipe *old);
+t_way				*find_nbr_way(t_way *way, int nbrway);
 void				ft_pipe_push_back(t_pipe **room, char *data);
 void				ft_room_push_back(t_lem *lem, char *data, int x, int y);
 void				create_tree(t_lem *lem);
 void				map_init(t_lem *lem);
-char				*dup_room(char *str);
 void				check_command(char *line, t_lem *lem);
 void				find_index(t_lem *lem);
 void				find_all_ways(t_lem *lem);
 void				find_uncrossed_ways(t_lem *lem);
+void				choose_group_or_shortway(t_lem *lem);
+void				choose_group(t_lem *lem);
+void				choose_short_way(t_lem *lem);
+char				*dup_room(char *str);
+int					is_shortest_way_in_group(t_lem *lem);
 int					dup_x(char *line);
 int					dup_y(char *line);
 
