@@ -109,22 +109,28 @@ void	choose_group(t_lem *lem)
 	int		a;
 	int		count;
 
+	a = lem->ants;
 	count = (count_way_length(lem) + lem->ants) / lem->ways_in_group + lem->ants % lem->ways_in_group - 1;
 	road = make_group_road(lem);
-//	while (count)
-//	{
-//		tmp = road
-//	}
-	while (road)
+	while (count)
 	{
 		tmp = road;
 		while (tmp)
 		{
-			ft_printf("(((%s\n", tmp->name);
+			if (tmp->room->ant > 0 && ft_strcmp(tmp->room->name, lem->start->name))
+			{
+				ft_printf("L%i-%s, ", tmp->room->ant, tmp->name);
+				tmp->ant = tmp->room->ant;
+				tmp->room->ant = 0;
+			}
+			else if (!ft_strcmp(tmp->room->name, lem->start->name) && a)
+			{
+
+				ft_printf("L%i-%s, ", lem->ants - a + 1, tmp->name);
+				tmp->ant = lem->ants - a--  + 1;
+			}
 			tmp = tmp->room;
 		}
-		road = road->next;
-		ft_printf("sss\n\n\n");
 	}
 }
 
