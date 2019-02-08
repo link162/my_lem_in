@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/07 17:02:42 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/08 15:49:10 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 typedef struct		s_road
 {
+	int				index;
 	int				ant;
 	char			*name;
 	struct s_road	*room;
