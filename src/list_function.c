@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:08:36 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/05 11:40:05 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 19:09:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_pipe	*ft_create_pipe(char *data)
 	return (list);
 }
 
-void	ft_pipe_push_back(t_pipe **tmp, char *data)
+int		ft_pipe_push_back(t_pipe **tmp, char *data)
 {
 	t_pipe	*list;
 
@@ -54,15 +54,15 @@ void	ft_pipe_push_back(t_pipe **tmp, char *data)
 	{
 		if (!ft_strcmp(data, list->connect))
 		{
-			ft_printf("find a same pipe!\n");
-			exit (1);
+			ft_printf("ERROR\n");
+			return (1);
 		}
 		while (list->next)
 		{
 			if (!ft_strcmp(data, list->next->connect))
 			{
-				ft_printf("find a same pipe!\n");
-				exit (1);
+				ft_printf("ERROR\n");
+				return (1);
 			}
 			list = list->next;
 		}
@@ -70,6 +70,7 @@ void	ft_pipe_push_back(t_pipe **tmp, char *data)
 	}
 	else
 		(*tmp) = ft_create_pipe(data);
+	return (0);
 }
 
 void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
@@ -81,25 +82,25 @@ void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
 	{
 		if (list->x == x && list->y == y)
 		{
-			ft_printf("find a same coords!00000000000000000\n");
-			exit (1);
+			ft_printf("ERROR\n");
+			clear_data(lem);
 		}
 		if (!ft_strcmp(data, list->name))
 		{
-			ft_printf("find a same rooms!\n");
-			exit (1);
+			ft_printf("ERROR\n");
+			clear_data(lem);
 		}
 		while (list->next)
 		{
 			if (list->next->x == x && list->next->y == y)
 			{
-				ft_printf("find a same coords!00000000000000000\n");
-				exit (1);
+				ft_printf("ERROR\n");
+				clear_data(lem);
 			}
 			if (!ft_strcmp(data, list->next->name))
 			{
-				ft_printf("find a same rooms!\n");
-				exit (1);
+				ft_printf("ERROR\n");
+				clear_data(lem);
 			}
 			list = list->next;
 		}

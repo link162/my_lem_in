@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 13:08:33 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 21:01:09 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,19 @@ t_pipe	*copy_list_pipes(t_pipe *old)
 	}
 	return (new);
 }
-
+void	error_case(t_lem *lem)
+{
+	ft_printf("ERROR\n");
+	clear_data(lem);
+}
 void	create_tree(t_lem *lem)
 {
 	t_room	*new;
 
 	if (!lem->start)
-	{
-		ft_printf("no room start\n");
-		exit(1);
-	}
+		error_case(lem);
 	if (!lem->end)
-	{
-		ft_printf("no room end\n");
-		exit (1);
-	}
+		error_case(lem);
 	new = lem->room;
 	while (new)
 	{
@@ -75,6 +73,7 @@ void	map_init(t_lem *lem)
 	lem->ants = 0;
 	lem->ways_in_group = 0;
 	lem->count_way = 0;
+	lem->pipes = NULL;
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/08 15:49:10 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:27:21 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef struct		s_road
 {
 	int				index;
+	int				length;
 	int				ant;
 	char			*name;
 	struct s_road	*room;
@@ -60,6 +61,7 @@ typedef struct		s_lem
 	int				ways_in_group;
 	int				count_way;
 	int				ants;
+	t_pipe			*pipes;
 	t_group			*group;
 	t_room			*room;
 	t_room			*start;
@@ -72,7 +74,7 @@ t_pipe				*ft_create_pipe(char *data);
 t_room				*find_room(char *str, t_room *list);
 t_pipe				*copy_list_pipes(t_pipe *old);
 t_way				*find_nbr_way(t_way *way, int nbrway);
-void				ft_pipe_push_back(t_pipe **room, char *data);
+int					ft_pipe_push_back(t_pipe **room, char *data);
 void				ft_room_push_back(t_lem *lem, char *data, int x, int y);
 void				create_tree(t_lem *lem);
 void				map_init(t_lem *lem);
@@ -83,6 +85,7 @@ void				find_uncrossed_ways(t_lem *lem);
 void				choose_group_or_shortway(t_lem *lem);
 void				choose_group(t_lem *lem);
 void				choose_short_way(t_lem *lem);
+void				clear_data(t_lem *lem);
 char				*dup_room(char *str);
 int					is_shortest_way_in_group(t_lem *lem);
 int					dup_x(char *line);

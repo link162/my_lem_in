@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 17:41:00 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/08 16:13:01 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:38:05 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,19 @@ t_road	*make_road(t_pipe *pipe)
 	return (ret);
 }
 
+int		find_road_index(t_road *road, int i)
+{
+	int	res;
+
+	res = 0;
+	while (road->next)
+	{
+		res += i - road->length;
+		road = road->next;
+	}
+	return (res);
+}
+
 t_road	*make_group_road(t_lem *lem)
 {
 	t_road	*road;
@@ -91,14 +104,16 @@ t_road	*make_group_road(t_lem *lem)
 	group = lem->group->next;
 	way = find_nbr_way(lem->way, lem->group->nbr_way);
 	road = make_road(way->pipe);
-	road->index = way->length - 1;
+	road->index = 0;
+	road->length = way->length;
 	tmp = road;
 	while (group)
 	{
 		way = find_nbr_way(lem->way, group->nbr_way);
 		road->next = make_road(way->pipe);
-		road->next->index = road->index + way->length - 1;
 		road->next->next = NULL;
+		road->next->length = way->length;
+		road->next->index = find_road_index(tmp, way->length);
 		group = group->next;
 		road = road->next;
 	}
@@ -110,6 +125,7 @@ void	choose_group(t_lem *lem)
 	t_road	*tmp;
 	t_road	*road;
 	t_road	*row;
+	int		i;
 	int		a;
 	int		count;
 	int		index;
@@ -119,16 +135,19 @@ void	choose_group(t_lem *lem)
 	road = make_group_road(lem);
 	while (count--)
 	{
+		i = 0;
 		tmp = road;
 		while (tmp)
 		{
-			index = row->index;
 			row = tmp;
+			index = row->index;
 			while (row->room)
 			{
 				if (row->room->ant > 0 && ft_strcmp(row->room->name, lem->start->name))
 				{
-					ft_printf("L%i-%s, ", row->room->ant, row->name);
+					if (i++ > 0)
+						ft_printf(", ");
+					ft_printf("L%i-%s", row->room->ant, row->name);
 					row->ant = row->room->ant;
 					row->room->ant = 0;
 				}
@@ -136,7 +155,9 @@ void	choose_group(t_lem *lem)
 				{
 					if (a > index)
 					{
-						ft_printf("L%i-%s, ", lem->ants - a + 1, row->name);
+						if (i++ > 0)
+							ft_printf(", ");
+						ft_printf("L%i-%s", lem->ants - a + 1, row->name);
 						row->ant = lem->ants - a-- + 1;
 					}
 				}

@@ -6,11 +6,11 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/02/06 17:54:02 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/09 19:33:35 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	lem_in
+NAME		=	lem-in
 
 LIB			=	libftprintf/
 LIB_N		=	libftprintf.a
@@ -28,7 +28,7 @@ OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
 
 INCLUDE		=	-I includes/
-CFLAGS		=	-g3 -O0
+CFLAGS		=	-Wall -Wextra -Werror -O3
 C			=	gcc
 
 all: $(NAME)

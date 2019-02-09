@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 11:33:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 15:04:24 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 19:13:19 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,8 @@ void	find_all_ways(t_lem *lem)
 	fill_way(lem);
 	if (!lem->way)
 	{
-		ft_printf("error\n");
-		exit (1);
+		ft_printf("ERROR\n");
+		clear_data(lem);
 	}
 	if (lem->way->next)
 		sort_ways(lem);

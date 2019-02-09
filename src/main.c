@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 22:11:19 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 20:28:05 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
 	{
 		if (!ft_strcmp(new->name, from))
 		{
-			ft_pipe_push_back(&new->pipe, to);
+			if (ft_pipe_push_back(&new->pipe, to))
+				clear_data(lem);
 			return ;
 		}
 		new = new->next;
 	}
 	if (!new)
 	{
-		ft_printf("no this room\n");
-		exit(1);
+		ft_printf("ERROR\n");
+		clear_data(lem);
 	}
 }
 
@@ -40,6 +41,7 @@ void	check_pipe(char *line, t_lem *lem)
 	char	*to;
 
 	i = 0;
+	ft_pipe_push_back(&lem->pipes, ft_strdup(line));
 	while (line[i] && line[i] != '-')
 		i++;
 	from = (char *)malloc(sizeof(char) * (i + 1));
@@ -98,8 +100,8 @@ void	read_data(t_lem *lem)
 			check_pipe(line, lem);
 		else
 		{
-			ft_printf("error map, line \"%s\"", line);
-			exit (1);
+			ft_printf("ERROR\n");
+			clear_data(lem);
 		}
 		free(line);
 	}
@@ -235,83 +237,53 @@ void	check_errors(t_lem *lem)
 
 	if (lem->ants < 1)
 	{
-		ft_printf("error number of ints\n");
-		exit (1);
+		ft_printf("ERROR\n");
+		clear_data(lem);
 	}
 	if (!lem->start)
 	{
-		ft_printf("no room start\n");
-		exit(1);
+		ft_printf("ERROR\n");
+		clear_data(lem);
 	}
 	if (!lem->end)
 	{
-		ft_printf("no room end\n");
-		exit (1);
+		ft_printf("ERROR\n");
+		clear_data(lem);
 	}
-//	while (check_dead_ends(lem))
-//		;
 	room = lem->room;
 	while (room)
 	{
 		if (!room->pipe)
 		{
-			ft_printf("room %s have no connections\n", room->name);
-			exit (1);
+			ft_printf("ERROR\n");
+			clear_data(lem);
 		}
 		room = room->next;
 	}
 }
 
-void	print_s(t_lem *lem)
+void	print_field(t_lem *lem)
 {
-	t_room *new;
-	t_pipe *pipe;
-	new = lem->room;
-	ft_printf("ants  - %i\n", lem->ants);
-	ft_printf("start - %s\n", lem->start->name);
-	ft_printf("end   - %s\n", lem->end->name);
-	while (new)
+	t_room	*room;
+	t_pipe	*pipe;
+
+	ft_printf("%i\n", lem->ants);
+	ft_printf("##start\n%s %i %i\n", lem->start->name, lem->start->x, lem->start->y);
+	ft_printf("##end\n%s %i %i\n", lem->end->name, lem->end->x, lem->end->y);
+	room = lem->room;
+	while (room)
 	{
-		ft_printf("room name -%s, x = %i y = %i connect to\n", new->name, new->x, new->y);
-		pipe = new->pipe;
-		while (pipe)
-		{
-			ft_printf("pipe %s\n", pipe->connect);
-			pipe = pipe->next;
-		}
-		ft_printf("index -%i\n", new->index);
-		new = new->next;
+		if (ft_strcmp(room->name, lem->start->name) && ft_strcmp(room->name, lem->end->name))
+			ft_printf("%s %i %i\n", room->name, room->x, room->y);
+		room = room->next;
 	}
-	t_way *way;
-	way = lem->way;
-	if (!way)
-		ft_printf("no possible weys\n");
-	while (way)
+	pipe = lem->pipes;
+	while (pipe)
 	{
-		pipe = way->pipe;
-		ft_printf("way%i length %i from ", way->number, way->length);
-		while (pipe)
-		{
-			ft_printf("- %s ", pipe->connect);
-			pipe = pipe->next;
-		}
-		ft_printf("\n");
-		way = way->next;
-	}
-	t_group *tmp;
-	ft_printf("%i possible ways\n", lem->count_way);
-	if (lem->ways_in_group > 0)
-	{
-	ft_printf("%i ways in group\n", lem->ways_in_group);
-	tmp = lem->group;
-	while (tmp)
-	{
-		ft_printf("way-%i,   ", tmp->nbr_way);
-		tmp = tmp->next;
+		ft_printf("%s\n", pipe->connect);
+		pipe = pipe->next;
 	}
 	ft_putchar('\n');
-	}
-	clear_data(lem);
 }
 
 int main(void)
@@ -323,6 +295,7 @@ int main(void)
 	check_errors(&lem);
 	find_index(&lem);
 	find_all_ways(&lem);
+	print_field(&lem);
 	if (lem.count_way > 1)
 	{
 		find_uncrossed_ways(&lem);
@@ -338,5 +311,5 @@ int main(void)
 	}
 	else
 		choose_short_way(&lem);
-	print_s(&lem);
+	clear_data(&lem);
 }
