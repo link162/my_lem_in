@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 21:01:09 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 22:44:17 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,31 @@ t_pipe	*copy_list_pipes(t_pipe *old)
 	}
 	return (new);
 }
-void	error_case(t_lem *lem)
-{
-	ft_printf("ERROR\n");
-	clear_data(lem);
-}
+
 void	create_tree(t_lem *lem)
 {
 	t_room	*new;
 
-	if (!lem->start)
-		error_case(lem);
-	if (!lem->end)
+	if (!lem->start || !lem->end)
 		error_case(lem);
 	new = lem->room;
 	while (new)
 	{
 		if (!ft_strcmp(new->name, lem->start->name))
-			if (new->pipe)
-			{	
-				lem->start->pipe = copy_list_pipes(new->pipe);
-				break ;
-			}
+		{
+			lem->start->pipe = copy_list_pipes(new->pipe);
+			break ;
+		}
 		new = new->next;
 	}
 	new = lem->room;
 	while (new)
 	{
 		if (!strcmp(new->name, lem->end->name))
-			if(new->pipe)
-			{
-				lem->end->pipe = copy_list_pipes(new->pipe);
-				break;
-			}
+		{
+			lem->end->pipe = copy_list_pipes(new->pipe);
+			break ;
+		}
 		new = new->next;
 	}
 }
@@ -77,7 +69,7 @@ void	map_init(t_lem *lem)
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
-	lem->way= NULL;
+	lem->way = NULL;
 	lem->group = NULL;
 }
 

@@ -12,6 +12,41 @@
 
 #include "lem_in.h"
 
+t_way	*find_nbr_way(t_way *way, int nbrway)
+{
+	while (way)
+	{
+		if (way->number == nbrway)
+			return (way);
+		way = way->next;
+	}
+	return (NULL);
+}
+
+int		find_in_list_room(t_lem *lem, t_pipe *pipe, char *str, int i)
+{
+	t_pipe *tmp;
+	t_pipe *last;
+	t_room *in;
+	t_room *out;
+
+	if (i > 0)
+		return (find_in_list_room_last(lem, pipe, str));
+	tmp = pipe;
+	while (tmp)
+	{
+		last = tmp;
+		if (!ft_strcmp(tmp->connect, str))
+			return (1);
+		tmp = tmp->next;
+	}
+	in = find_room(last->connect, lem->room);
+	out = find_room(str, lem->room);
+	if (in->index < out->index)
+		return (1);
+	return (0);
+}
+
 t_room	*ft_create_room(char *data, int x, int y)
 {
 	t_room	*list;
@@ -31,46 +66,14 @@ t_room	*ft_create_room(char *data, int x, int y)
 	return (list);
 }
 
-t_pipe	*ft_create_pipe(char *data)
+t_pipe	*find_last_room_in_way(t_pipe *pipe)
 {
-	t_pipe	*list;
+	t_pipe	*tmp;
 
-	list = NULL;
-	list = malloc(sizeof(t_pipe));
-	if (list)
-	{
-		list->connect = data;
-		list->next = NULL;
-	}
-	return (list);
-}
-
-int		ft_pipe_push_back(t_pipe **tmp, char *data)
-{
-	t_pipe	*list;
-
-	list = *tmp;
-	if (list)
-	{
-		if (!ft_strcmp(data, list->connect))
-		{
-			ft_printf("ERROR\n");
-			return (1);
-		}
-		while (list->next)
-		{
-			if (!ft_strcmp(data, list->next->connect))
-			{
-				ft_printf("ERROR\n");
-				return (1);
-			}
-			list = list->next;
-		}
-		list->next = ft_create_pipe(data);
-	}
-	else
-		(*tmp) = ft_create_pipe(data);
-	return (0);
+	tmp = pipe;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
 
 void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
@@ -81,27 +84,15 @@ void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
 	if (list)
 	{
 		if (list->x == x && list->y == y)
-		{
-			ft_printf("ERROR\n");
-			clear_data(lem);
-		}
+			error_case(lem);
 		if (!ft_strcmp(data, list->name))
-		{
-			ft_printf("ERROR\n");
-			clear_data(lem);
-		}
+			error_case(lem);
 		while (list->next)
 		{
 			if (list->next->x == x && list->next->y == y)
-			{
-				ft_printf("ERROR\n");
-				clear_data(lem);
-			}
+				error_case(lem);
 			if (!ft_strcmp(data, list->next->name))
-			{
-				ft_printf("ERROR\n");
-				clear_data(lem);
-			}
+				error_case(lem);
 			list = list->next;
 		}
 		list->next = ft_create_room(data, x, y);

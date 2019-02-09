@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 12:37:39 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/04 16:09:40 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/09 22:50:28 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ t_room	*find_room(char *str, t_room *list)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	ft_printf("error\n");
-	exit (1);
 	return (NULL);
 }
 
@@ -38,15 +36,17 @@ void	remove_first_list(t_lem *clone)
 	clone->room = tmp;
 }
 
-void	check_index(t_lem *clone, t_room *list)
+int		check_index(t_lem *clone, t_room *list)
 {
 	t_room	*target;
 	t_room	*tmp;
 	t_pipe	*way;
 
 	if (!clone->room)
-		return ;
+		return (1);
 	target = find_room(clone->room->name, list);
+	if (!target)
+		return (0);
 	way = target->pipe;
 	while (way)
 	{
@@ -68,7 +68,7 @@ void	check_index(t_lem *clone, t_room *list)
 		way = way->next;
 	}
 	remove_first_list(clone);
-	check_index(clone, list);
+	return (check_index(clone, list));
 }
 
 void	set_start_index(t_lem *lem)
@@ -95,6 +95,8 @@ void	find_index(t_lem *lem)
 
 	lem->start->index = 0;
 	set_start_index(lem);
-	clone.room = ft_create_room(ft_strdup(lem->start->name), lem->start->x, lem->start->y);
-	check_index(&clone, lem->room);
+	clone.room = ft_create_room(ft_strdup(lem->start->name),
+			lem->start->x, lem->start->y);
+	if (!check_index(&clone, lem->room))
+		error_case(lem);
 }

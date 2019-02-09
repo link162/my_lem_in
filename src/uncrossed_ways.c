@@ -12,17 +12,6 @@
 
 #include "lem_in.h"
 
-t_way	*find_nbr_way(t_way *way, int nbrway)
-{
-	while (way)
-	{
-		if (way->number == nbrway)
-			return (way);
-		way = way->next;
-	}
-	return (NULL);
-}
-
 int		try_find_room_in_way(t_pipe *pipe, char *name)
 {
 	while (pipe)
