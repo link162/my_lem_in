@@ -6,17 +6,17 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 22:45:36 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 10:17:01 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-
 int		dup_y(char *str)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
 	i++;
@@ -27,8 +27,9 @@ int		dup_y(char *str)
 
 int		dup_x(char *str)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
 	return (ft_atoi(&str[i + 1]));
@@ -79,7 +80,7 @@ void	check_errors(t_lem *lem)
 	}
 }
 
-int main(void)
+int		main(void)
 {
 	t_lem	lem;
 

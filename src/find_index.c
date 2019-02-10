@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 12:37:39 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 22:50:28 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 11:54:40 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	remove_first_list(t_lem *clone)
 int		check_index(t_lem *clone, t_room *list)
 {
 	t_room	*target;
-	t_room	*tmp;
 	t_pipe	*way;
 
 	if (!clone->room)
@@ -48,25 +47,7 @@ int		check_index(t_lem *clone, t_room *list)
 	if (!target)
 		return (0);
 	way = target->pipe;
-	while (way)
-	{
-		tmp = list;
-		while (tmp)
-		{
-			if (!ft_strcmp(tmp->name, way->connect))
-				if (tmp->index < 0 || tmp->index > target->index + 1)
-				{
-					tmp->index = target->index + 1;
-					if (tmp->put == 0)
-					{
-						ft_room_push_back(clone, ft_strdup(tmp->name), tmp->x, tmp->y);
-						tmp->put = 2;
-					}
-				}
-			tmp = tmp->next;
-		}
-		way = way->next;
-	}
+	index_helper(clone, way, list, target);
 	remove_first_list(clone);
 	return (check_index(clone, list));
 }

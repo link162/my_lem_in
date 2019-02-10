@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/03 11:33:11 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 22:00:29 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 11:24:02 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,11 @@ void	del_way(t_lem *lem)
 	}
 }
 
-void	fill_way(t_lem *lem)
+int		fill_helper(t_lem *lem, t_pipe *list, t_way *road)
 {
-	t_room	*room;
-	t_way	*road;
-	t_pipe	*name;
-	t_pipe	*list;
-	int		i;
+	int i;
 
 	i = 0;
-	road = NULL;
-	road = find_way(lem->way);
-	if (!road)
-		return ;
-	name = find_last_room_in_way(road->pipe);
-	room = find_room(name->connect, lem->room);
-	list = room->pipe;
 	while (list)
 	{
 		if (!find_in_list_room(lem, road->pipe, list->connect, i))
@@ -73,17 +62,32 @@ void	fill_way(t_lem *lem)
 		}
 		list = list->next;
 	}
+	return (i);
+}
+
+void	fill_way(t_lem *lem)
+{
+	t_room	*room;
+	t_way	*road;
+	t_pipe	*name;
+	t_pipe	*list;
+	int		i;
+
+	road = NULL;
+	road = find_way(lem->way);
+	if (!road)
+		return ;
+	name = find_last_room_in_way(road->pipe);
+	room = find_room(name->connect, lem->room);
+	list = room->pipe;
+	i = fill_helper(lem, list, road);
 	if (i == 0)
 		del_way(lem);
 	fill_way(lem);
 }
-void	sort_ways(t_lem *lem)
+
+void	sort_ways(t_lem *lem, int x, t_pipe *pipe, t_way *way)
 {
-	int		x;
-	t_pipe	*pipe;
-	t_way	*way;
-	
-	x = 1;
 	while (x > 0)
 	{
 		x = 0;
@@ -111,19 +115,6 @@ void	sort_ways(t_lem *lem)
 	}
 }
 
-int		set_numbers(t_way *way)
-{
-	int x;
-
-	x = 0;
-	while (way)
-	{
-		way->number = x++;
-		way = way->next;
-	}
-	return (x);
-}
-
 void	find_all_ways(t_lem *lem)
 {
 	lem->way = create_way();
@@ -131,11 +122,8 @@ void	find_all_ways(t_lem *lem)
 	lem->way->length = 0;
 	fill_way(lem);
 	if (!lem->way)
-	{
-		ft_printf("ERROR\n");
-		clear_data(lem);
-	}
+		error_case(lem);
 	if (lem->way->next)
-		sort_ways(lem);
+		sort_ways(lem, 1, NULL, NULL);
 	lem->count_way = set_numbers(lem->way);
 }

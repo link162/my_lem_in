@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/02/09 22:01:45 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/10 11:48:58 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC			=	$(SRC_D)main.c \
 				$(SRC_D)choose_groups_ways.c \
 				$(SRC_D)work_with_pipes.c \
 				$(SRC_D)print_functions.c \
+				$(SRC_D)add_function.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))

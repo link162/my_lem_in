@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 21:20:01 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 12:23:08 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ int		count_pipes(t_room *room)
 	return (x);
 }
 
-
 int		ft_pipe_push_back(t_pipe **tmp, char *data)
 {
-	t_pipe	*list;
+	t_pipe *list;
 
 	list = *tmp;
 	if (list)

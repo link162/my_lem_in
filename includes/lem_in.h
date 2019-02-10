@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 22:29:53 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 12:55:17 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ t_pipe				*copy_list_pipes(t_pipe *old);
 t_pipe				*find_last_room_in_way(t_pipe *pipe);
 t_way				*create_way(void);
 t_way				*find_nbr_way(t_way *way, int nbrway);
+void				choose_helper(t_lem *lem, int steps, t_road *road, int a);
+void				choose_short_way(t_lem *lem);
+void				index_helper(t_lem *c, t_pipe *w, t_room *l, t_room *t);
 int					ft_pipe_push_back(t_pipe **room, char *data);
 int					find_in_list_room(t_lem *l, t_pipe *p, char *s, int i);
 void				ft_room_push_back(t_lem *lem, char *data, int x, int y);
 void				error_case(t_lem *lem);
 void				clone_way_and_add(t_lem *lem, t_way *obj, char *str);
 void				print_field(t_lem *lem);
+int					set_numbers(t_way *way);
 void				del_pipes(t_pipe **pipes);
 void				check_pipe(char *line, t_lem *lem);
 t_way				*find_way(t_way *way);
@@ -102,6 +106,7 @@ char				*dup_room(char *str);
 int					is_shortest_way_in_group(t_lem *lem);
 int					dup_x(char *line);
 int					dup_y(char *line);
+void				free_road(t_road *road);
 int					find_in_list_room_last(t_lem *l, t_pipe *p, char *s);
 
 #endif

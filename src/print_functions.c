@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:12:51 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 23:18:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 12:48:26 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,51 +38,31 @@ void	print_field(t_lem *lem)
 	ft_putchar('\n');
 }
 
-void	choose_short_way(t_lem *lem)
+int		next_room_if(t_lem *lem, t_road *row, int a, int index)
 {
-	int		a;
-	int		steps;
-	t_road	*road;
-	t_road	*tmp;
-
-	a = lem->ants;
-	road = make_road(lem->way->pipe);
-	steps = lem->way->length + lem->ants - 1;
-	while (steps)
+	if (row->room->ant > 0 && ft_strcmp(row->room->name, lem->start->name))
 	{
-		tmp = road;
-		while (tmp->room)
-		{
-			if (tmp->room->ant > 0 && ft_strcmp(tmp->room->name, lem->start->name))
-			{
-				ft_printf("L%i-%s ", tmp->room->ant, tmp->name);
-				tmp->ant = tmp->room->ant;
-				tmp->room->ant = 0;
-			}
-			else if (!ft_strcmp(tmp->room->name, lem->start->name) && a)
-			{
-				ft_printf("L%i-%s ", lem->ants - a + 1, tmp->name);
-				tmp->ant = lem->ants - a--  + 1;
-			}
-			tmp = tmp->room;
-		}
-		steps--;
-		ft_putchar('\n');
+		ft_printf("L%i-%s ", row->room->ant, row->name);
+		row->ant = row->room->ant;
+		row->room->ant = 0;
 	}
+	else if (!ft_strcmp(row->room->name, lem->start->name) && a)
+	{
+		if (a > index)
+		{
+			ft_printf("L%i-%s ", lem->ants - a + 1, row->name);
+			row->ant = lem->ants - a-- + 1;
+		}
+	}
+	return (a);
 }
 
-void	choose_group(t_lem *lem)
+void	group_helper(t_lem *lem, int count, int a, t_road *road)
 {
 	t_road	*tmp;
-	t_road	*road;
 	t_road	*row;
-	int		a;
-	int		count;
 	int		index;
 
-	a = lem->ants;
-	count = (count_way_length(lem) + lem->ants) / lem->ways_in_group + lem->ants % lem->ways_in_group - 1;
-	road = make_group_road(lem);
 	while (count--)
 	{
 		tmp = road;
@@ -92,20 +72,7 @@ void	choose_group(t_lem *lem)
 			index = row->index;
 			while (row->room)
 			{
-				if (row->room->ant > 0 && ft_strcmp(row->room->name, lem->start->name))
-				{
-					ft_printf("L%i-%s ", row->room->ant, row->name);
-					row->ant = row->room->ant;
-					row->room->ant = 0;
-				}
-				else if (!ft_strcmp(row->room->name, lem->start->name) && a)
-				{
-					if (a > index)
-					{
-						ft_printf("L%i-%s ", lem->ants - a + 1, row->name);
-						row->ant = lem->ants - a-- + 1;
-					}
-				}
+				a = next_room_if(lem, row, a, index);
 				row = row->room;
 			}
 			tmp = tmp->next;
@@ -114,9 +81,23 @@ void	choose_group(t_lem *lem)
 	}
 }
 
+void	choose_group(t_lem *lem)
+{
+	t_road	*road;
+	int		a;
+	int		count;
+
+	a = lem->ants;
+	count = (count_way_length(lem) + lem->ants) / lem->ways_in_group +
+		lem->ants % lem->ways_in_group - 1;
+	road = make_group_road(lem);
+	group_helper(lem, count, a, road);
+	free_road(road);
+}
+
 int		count_way_length(t_lem *lem)
 {
-	int x;
+	int		x;
 	t_group	*group;
 	t_way	*way;
 

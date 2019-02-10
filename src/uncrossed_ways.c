@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 11:59:56 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/06 14:24:40 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/10 10:20:53 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ways_cmp(t_lem *lem, t_way *candidat)
 {
 	t_group *group;
 	t_way	*current;
-	t_pipe *pipe;
+	t_pipe	*pipe;
 
 	group = lem->group;
 	while (group)
@@ -57,8 +57,8 @@ void	add_last_way(t_group *group, int number)
 
 int		start_way(t_lem *lem, int i)
 {
-	t_way *nextway;
-	int flag;
+	t_way	*nextway;
+	int		flag;
 
 	flag = 0;
 	lem->group = (t_group *)malloc(sizeof(t_group));
