@@ -33,6 +33,7 @@ int		find_in_list_room(t_lem *lem, t_pipe *pipe, char *str, int i)
 	if (i > 0)
 		return (find_in_list_room_last(lem, pipe, str));
 	tmp = pipe;
+	last = tmp;
 	while (tmp)
 	{
 		last = tmp;
@@ -76,27 +77,31 @@ t_pipe	*find_last_room_in_way(t_pipe *pipe)
 	return (tmp);
 }
 
-void	ft_room_push_back(t_lem *lem, char *data, int x, int y)
+int		ft_room_push_back(t_lem *lem, char *data, int x, int y)
 {
 	t_room	*list;
 
 	list = lem->room;
 	if (list)
 	{
-		if (list->x == x && list->y == y)
-			error_case(lem);
-		if (!ft_strcmp(data, list->name))
-			error_case(lem);
+		if ((list->x == x && list->y == y) || !ft_strcmp(data, list->name))
+		{
+			free(data);
+			return (1);
+		}
 		while (list->next)
 		{
-			if (list->next->x == x && list->next->y == y)
-				error_case(lem);
-			if (!ft_strcmp(data, list->next->name))
-				error_case(lem);
+			if ((list->next->x == x && list->next->y == y) ||
+							!ft_strcmp(data, list->next->name))
+			{
+				free(data);
+				return (1);
+			}
 			list = list->next;
 		}
 		list->next = ft_create_room(data, x, y);
 	}
 	else
 		lem->room = ft_create_room(data, x, y);
+	return (0);
 }

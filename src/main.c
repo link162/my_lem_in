@@ -51,11 +51,20 @@ void	read_data(t_lem *lem)
 			i++;
 		}
 		else if (ft_strchr(line, ' '))
-			ft_room_push_back(lem, dup_room(line), dup_x(line), dup_y(line));
+		{	if (ft_room_push_back(lem, dup_room(line),
+									dup_x(line), dup_y(line)))
+			{
+				free(line);
+				error_case(lem);
+			}
+		}
 		else if (ft_strchr(line, '-'))
 			check_pipe(line, lem);
 		else
+		{
+			free(line);
 			error_case(lem);
+		}
 		free(line);
 	}
 	create_tree(lem);

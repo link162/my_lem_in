@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
+int		add_pipe_to_struct(t_lem *lem, char *from, char *to)
 {
 	t_room *new;
 
@@ -22,13 +22,17 @@ void	add_pipe_to_struct(t_lem *lem, char *from, char *to)
 		if (!ft_strcmp(new->name, from))
 		{
 			if (ft_pipe_push_back(&new->pipe, to))
-				error_case(lem);
-			return ;
+				return (1);
+			return (0);
 		}
 		new = new->next;
 	}
 	if (!new)
+	{
+		ft_printf("fff\n");
 		error_case(lem);
+	}
+	return (0);
 }
 
 t_pipe	*ft_create_pipe(char *data)
@@ -65,8 +69,11 @@ void	check_pipe(char *line, t_lem *lem)
 	to = (char *)malloc(sizeof(char) * (i + 1));
 	ft_bzero(to, i + 1);
 	ft_strncpy(to, line, i);
-	add_pipe_to_struct(lem, from, to);
-	add_pipe_to_struct(lem, to, from);
+	if(add_pipe_to_struct(lem, from, to) || add_pipe_to_struct(lem, to, from))
+	{
+		free(line);
+		error_case(lem);
+	}
 }
 
 int		count_pipes(t_room *room)

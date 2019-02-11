@@ -19,7 +19,7 @@ SRC	=	ft_memset.c ft_bzero.c \
 NAME	=	libft.a
 OBJ_D	=	obj/
 OBJ		=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
-CFLAGS	=	-Wall -Wextra -Werror -O3
+CFLAGS	=	-O3
 
 all: $(NAME)
 

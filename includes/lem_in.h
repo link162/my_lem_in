@@ -81,7 +81,7 @@ void				choose_short_way(t_lem *lem);
 void				index_helper(t_lem *c, t_pipe *w, t_room *l, t_room *t);
 int					ft_pipe_push_back(t_pipe **room, char *data);
 int					find_in_list_room(t_lem *l, t_pipe *p, char *s, int i);
-void				ft_room_push_back(t_lem *lem, char *data, int x, int y);
+int					ft_room_push_back(t_lem *lem, char *data, int x, int y);
 void				error_case(t_lem *lem);
 void				clone_way_and_add(t_lem *lem, t_way *obj, char *str);
 void				print_field(t_lem *lem);
