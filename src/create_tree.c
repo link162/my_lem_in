@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/09 22:44:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:05:58 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,53 @@ char	*dup_room(char *str)
 	char	*res;
 
 	i = 0;
-	while (str[i] && str[i] != ' ')
+	while (str[i])
 		i++;
-	res = (char *)malloc(sizeof(char) * (i + 1));
-	ft_strncpy(res, str, i);
-	res[i] = '\0';
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	res = (char *)malloc(sizeof(char) * (i + 2));
+	ft_strncpy(res, str, i + 1);
+	res[i + 1] = '\0';
 	return (res);
 }
 
-void	check_command(char *line, t_lem *lem)
+void	check_command(char *line, t_lem *lem, char *str)
 {
-	char *str;
-
 	if (!ft_strcmp(line, "##start"))
 	{
 		get_next_line(0, &str);
-		lem->start = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
-		ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
-		free(str);
+		if (indicate_room(str, 0, 0))
+		{
+			lem->start = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
+			free(str);
+		}
+		else
+			error_case(lem);
 	}
 	else if (!ft_strcmp(line, "##end"))
 	{
 		get_next_line(0, &str);
-		lem->end = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
-		ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
-		free(str);
+		if (indicate_room(str, 0, 0))
+		{
+			lem->end = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
+			free(str);
+		}
+		else
+			error_case(lem);
 	}
 }

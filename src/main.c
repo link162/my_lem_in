@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/11 15:51:07 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:10:26 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,51 @@ int		dup_x(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ')
+	while (str[i])
 		i++;
-	return (ft_atoi(&str[i + 1]));
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ')
+		return (ft_atoi(&str[i]));
+	return (0);
 }
 
-void	read_data(t_lem *lem)
+void	read_data(t_lem *lem, int i)
 {
-	int		i;
-	char	*line;
+	char	*l;
 
-	i = 0;
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &l) > 0)
 	{
-		if (line[0] == '#')
-			check_command(line, lem);
+		if (l[0] == 'L')
+			error_case(lem);
+		if (l[0] == '#')
+			check_command(l, lem, NULL);
 		else if (lem->ants == 0 && i == 0)
 		{
-			lem->ants = ft_atoi(line);
+			lem->ants = ft_atoi(l);
 			i++;
 		}
-		else if (indicate_room(line))
+		else if (indicate_room(l, 0, 0))
 		{
-			if (ft_room_push_back(lem, dup_room(line), dup_x(line), dup_y(line)))
-			{
-				free(line);
+			if (ft_room_push_back(lem, dup_room(l), dup_x(l), dup_y(l)))
 				error_case(lem);
-			}
 		}
-		else if (ft_strchr(line, '-'))
-			check_pipe(line, lem);
+		else if (ft_strchr(l, '-'))
+			check_pipe(l, lem);
 		else
-		{
-			free(line);
 			error_case(lem);
-		}
-		free(line);
+		free(l);
 	}
 	create_tree(lem);
 }
@@ -100,7 +109,7 @@ int		main(void)
 	t_lem	lem;
 
 	map_init(&lem);
-	read_data(&lem);
+	read_data(&lem, 0);
 	check_errors(&lem);
 	find_index(&lem);
 	find_all_ways(&lem);

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 11:48:17 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/11 15:48:48 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:54:10 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,8 @@ void	choose_short_way(t_lem *lem)
 	free_road(road);
 }
 
-int		indicate_room(char *str)
+int		indicate_room(char *str, int i, int x)
 {
-	int i;
-	int x;
-
-	i = 0;
 	while (str[i])
 		i++;
 	i--;
@@ -102,5 +98,20 @@ int		indicate_room(char *str)
 		i--;
 	if (str[i] == ' ' && i > 0)
 		return (1);
+	return (0);
+}
+
+int		find_connect_room(t_lem *lem, char *line)
+{
+	t_room *room;
+
+	room = lem->room;
+	while (room)
+	{
+		if (!ft_strncmp(room->name, line, ft_strlen(room->name)))
+			return (ft_strlen(room->name));
+		room = room->next;
+	}
+	error_case(lem);
 	return (0);
 }

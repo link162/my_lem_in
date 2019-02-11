@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/10 12:23:08 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 16:56:38 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	check_pipe(char *line, t_lem *lem)
 
 	i = 0;
 	ft_pipe_push_back(&lem->pipes, ft_strdup(line));
-	while (line[i] && line[i] != '-')
-		i++;
+	i = find_connect_room(lem, line);
 	from = (char *)malloc(sizeof(char) * (i + 1));
 	ft_bzero(from, i + 1);
 	ft_strncpy(from, line, i);
@@ -70,7 +69,7 @@ void	check_pipe(char *line, t_lem *lem)
 	to = (char *)malloc(sizeof(char) * (i + 1));
 	ft_bzero(to, i + 1);
 	ft_strncpy(to, line, i);
-	if(add_pipe_to_struct(lem, from, to) || add_pipe_to_struct(lem, to, from))
+	if (add_pipe_to_struct(lem, from, to) || add_pipe_to_struct(lem, to, from))
 	{
 		free(line);
 		error_case(lem);

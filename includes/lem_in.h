@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/11 14:42:31 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 17:05:54 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_way				*create_way(void);
 t_way				*find_nbr_way(t_way *way, int nbrway);
 void				choose_helper(t_lem *lem, int steps, t_road *road, int a);
 void				choose_short_way(t_lem *lem);
-int					indicate_room(char *str);
+int					find_connect_room(t_lem *lem, char *line);
+int					indicate_room(char *str, int i, int x);
 void				index_helper(t_lem *c, t_pipe *w, t_room *l, t_room *t);
 int					ft_pipe_push_back(t_pipe **room, char *data);
 int					find_in_list_room(t_lem *l, t_pipe *p, char *s, int i);
@@ -93,7 +94,7 @@ t_way				*find_way(t_way *way);
 t_road				*make_group_road(t_lem *lem);
 void				create_tree(t_lem *lem);
 void				map_init(t_lem *lem);
-void				check_command(char *line, t_lem *lem);
+void				check_command(char *line, t_lem *lem, char *str);
 void				find_index(t_lem *lem);
 void				find_all_ways(t_lem *lem);
 void				find_uncrossed_ways(t_lem *lem);
