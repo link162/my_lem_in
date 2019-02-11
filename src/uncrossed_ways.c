@@ -96,5 +96,5 @@ void	find_uncrossed_ways(t_lem *lem)
 		i++;
 	}
 	if (res == 0)
-		ft_printf("no uncrosses way\n");
+		lem->group = NULL;
 }

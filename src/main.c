@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/10 10:17:01 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:51:07 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ int		dup_y(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ')
+	while (str[i])
 		i++;
-	i++;
-	while (str[i] && str[i] != ' ')
-		i++;
-	return (ft_atoi(&str[i + 1]));
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ')
+		return (ft_atoi(&str[i]));
+	return (0);
 }
 
 int		dup_x(char *str)
@@ -50,9 +56,9 @@ void	read_data(t_lem *lem)
 			lem->ants = ft_atoi(line);
 			i++;
 		}
-		else if (ft_strchr(line, ' '))
-		{	if (ft_room_push_back(lem, dup_room(line),
-									dup_x(line), dup_y(line)))
+		else if (indicate_room(line))
+		{
+			if (ft_room_push_back(lem, dup_room(line), dup_x(line), dup_y(line)))
 			{
 				free(line);
 				error_case(lem);

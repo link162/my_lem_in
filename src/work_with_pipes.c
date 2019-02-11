@@ -29,7 +29,8 @@ int		add_pipe_to_struct(t_lem *lem, char *from, char *to)
 	}
 	if (!new)
 	{
-		ft_printf("fff\n");
+		free(from);
+		free(to);
 		error_case(lem);
 	}
 	return (0);

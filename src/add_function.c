@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 11:48:17 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/10 12:54:20 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:48:48 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,36 @@ void	choose_short_way(t_lem *lem)
 	steps = lem->way->length + lem->ants - 1;
 	choose_helper(lem, steps, road, a);
 	free_road(road);
+}
+
+int		indicate_room(char *str)
+{
+	int i;
+	int x;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	x = i;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (i < 3 || x == i || (str[i] != ' ' && str[i] != '-'))
+		return (0);
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	x = i;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (i < 1 || x == i || (str[i] != ' ' && str[i] != '-'))
+		return (0);
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ' && i > 0)
+		return (1);
+	return (0);
 }

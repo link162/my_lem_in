@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/10 12:55:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/02/11 14:42:31 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_way				*create_way(void);
 t_way				*find_nbr_way(t_way *way, int nbrway);
 void				choose_helper(t_lem *lem, int steps, t_road *road, int a);
 void				choose_short_way(t_lem *lem);
+int					indicate_room(char *str);
 void				index_helper(t_lem *c, t_pipe *w, t_room *l, t_room *t);
 int					ft_pipe_push_back(t_pipe **room, char *data);
 int					find_in_list_room(t_lem *l, t_pipe *p, char *s, int i);
