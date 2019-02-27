@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/02/11 13:44:41 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/02/27 16:51:01 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,23 +17,18 @@ LIB_N		=	libftprintf.a
 
 SRC_D		=	src/
 SRC			=	$(SRC_D)main.c \
-				$(SRC_D)list_function.c \
-				$(SRC_D)create_tree.c \
-				$(SRC_D)find_index.c \
-				$(SRC_D)find_ways.c \
-				$(SRC_D)find_ways2.c \
+				$(SRC_D)add_pipes_to_rooms.c \
+				$(SRC_D)read_data.c \
 				$(SRC_D)error_case.c \
-				$(SRC_D)uncrossed_ways.c \
-				$(SRC_D)choose_groups_ways.c \
-				$(SRC_D)work_with_pipes.c \
-				$(SRC_D)print_functions.c \
-				$(SRC_D)add_function.c \
+				$(SRC_D)check_pipe.c \
+				$(SRC_D)convert_to_arr.c \
+				$(SRC_D)find_ways.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))
 
 INCLUDE		=	-I includes/
-CFLAGS		=	-Wall -Wextra -Werror -O3
+CFLAGS		=	-Ofast
 C			=	gcc
 
 all: $(NAME)

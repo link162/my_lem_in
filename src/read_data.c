@@ -1,0 +1,221 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_tree.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
+/*   Updated: 2019/02/22 16:16:14 by ybuhai           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
+
+int		dup_y(char *str)//
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ')
+		return (ft_atoi(&str[i]));
+	return (0);
+}
+
+int		dup_x(char *str)//
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ')
+		return (ft_atoi(&str[i]));
+	return (0);
+}
+
+char	*dup_room(char *str)//
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	res = (char *)malloc(sizeof(char) * (i + 2));
+	ft_strncpy(res, str, i + 1);
+	res[i + 1] = '\0';
+	return (res);
+}
+int		indicate_room(char *str, int i, int x)//
+{
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	x = i;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (i < 3 || x == i || (str[i] != ' ' && str[i] != '-'))
+		return (0);
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	x = i;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (i < 1 || x == i || (str[i] != ' ' && str[i] != '-'))
+		return (0);
+	if (str[i] == '-')
+		i--;
+	if (str[i] == ' ' && i > 0)
+		return (1);
+	return (0);
+}
+
+t_room	*ft_create_room(char *data, int x, int y)//
+{
+	t_room	*list;
+
+	list = NULL;
+	list = (t_room *)malloc(sizeof(t_room));
+	if (list)
+	{
+		list->name = data;
+		list->x = x;
+		list->y = y;
+		list->next = NULL;
+		list->pipe = NULL;
+	}
+	return (list);
+}
+
+int		ft_room_push_back(t_lem *lem, char *data, int x, int y)//
+{
+	t_room	*list;
+
+	list = lem->room;
+	if (list)
+	{
+		if ((list->x == x && list->y == y) || !ft_strcmp(data, list->name))
+		{
+			free(data);
+			return (1);
+		}
+		while (list->next)
+		{
+			if ((list->next->x == x && list->next->y == y) ||
+							!ft_strcmp(data, list->next->name))
+			{
+				free(data);
+				return (1);
+			}
+			list = list->next;
+		}
+		list->next = ft_create_room(data, x, y);
+	}
+	else
+		lem->room = ft_create_room(data, x, y);
+	return (0);
+}
+
+void	check_command(char *line, t_lem *lem, char *str)//
+{
+	if (!ft_strcmp(line, "##start"))
+	{
+		get_next_line(0, &str);
+		if (indicate_room(str, 0, 0))
+		{
+			lem->start = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
+			free(str);
+		}
+		else
+			error_case(lem);
+	}
+	else if (!ft_strcmp(line, "##end"))
+	{
+		get_next_line(0, &str);
+		if (indicate_room(str, 0, 0))
+		{
+			lem->end = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
+			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
+			free(str);
+		}
+		else
+			error_case(lem);
+	}
+}
+
+void	read_data(t_lem *lem, int i)
+{
+	char	*l;
+
+	while (get_next_line(0, &l) > 0)
+	{
+		if (l[0] == 'L')
+			error_case(lem);
+		if (l[0] == '#')
+			check_command(l, lem, NULL);
+		else if (lem->ants == 0 && i == 0)
+		{
+			lem->ants = ft_atoi(l);
+			i++;
+		}
+		else if (indicate_room(l, 0, 0))
+		{
+			if (ft_room_push_back(lem, dup_room(l), dup_x(l), dup_y(l)))
+			{
+				ft_printf("same room");
+				error_case(lem);
+			}
+		}
+		else if (ft_strchr(l, '-'))
+			check_pipe(l, lem);
+		else
+		{
+			ft_printf("error line\n");
+			error_case(lem);
+		}
+		free(l);
+	}
+}
