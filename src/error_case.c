@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:22:47 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/21 18:30:55 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 16:45:33 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	clear_data(t_lem *lem)
 void	error_case(t_lem *lem)
 {
 	ft_printf("ERROR\n");
-	clear_data(lem);
+	exit (1);
+//	clear_data(lem);
 }

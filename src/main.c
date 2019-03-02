@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/27 17:19:49 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 17:06:22 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ void	check_errors(t_lem *lem)
 	}
 }
 
+void	print_ways(t_lem *lem)
+{
+	t_way *tmp;
+	t_way *step;
+
+	tmp = lem->way;
+	while (tmp)
+	{
+		ft_printf("way length %i, ", tmp->length);
+//		step = tmp;
+///		while (step)
+//		{
+//			ft_printf("%i ", step->id);
+//			step = step->step;
+//		}
+		tmp = tmp->next;
+		ft_putchar('\n');
+	}
+}
+
 int		main(void)
 {
 	t_lem	lem;
@@ -53,5 +73,6 @@ int		main(void)
 	check_errors(&lem);
 	convert_to_arr(&lem);
 	find_ways(&lem);
-//	system("leaks lem-in");
+	print_ways(&lem);
+	system("leaks lem-in");
 }

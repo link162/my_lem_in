@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/22 16:16:14 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 17:13:11 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		dup_y(char *str)//
+int		dup_y(char *str)
 {
 	int i;
 
@@ -31,7 +31,7 @@ int		dup_y(char *str)//
 	return (0);
 }
 
-int		dup_x(char *str)//
+int		dup_x(char *str)
 {
 	int i;
 
@@ -56,7 +56,7 @@ int		dup_x(char *str)//
 	return (0);
 }
 
-char	*dup_room(char *str)//
+char	*dup_room(char *str)
 {
 	int		i;
 	char	*res;
@@ -84,7 +84,7 @@ char	*dup_room(char *str)//
 	res[i + 1] = '\0';
 	return (res);
 }
-int		indicate_room(char *str, int i, int x)//
+int		indicate_room(char *str, int i, int x)
 {
 	while (str[i])
 		i++;
@@ -112,7 +112,7 @@ int		indicate_room(char *str, int i, int x)//
 	return (0);
 }
 
-t_room	*ft_create_room(char *data, int x, int y)//
+t_room	*ft_create_room(char *data, int x, int y)
 {
 	t_room	*list;
 
@@ -129,7 +129,7 @@ t_room	*ft_create_room(char *data, int x, int y)//
 	return (list);
 }
 
-int		ft_room_push_back(t_lem *lem, char *data, int x, int y)//
+int		ft_room_push_back(t_lem *lem, char *data, int x, int y)
 {
 	t_room	*list;
 
@@ -137,18 +137,12 @@ int		ft_room_push_back(t_lem *lem, char *data, int x, int y)//
 	if (list)
 	{
 		if ((list->x == x && list->y == y) || !ft_strcmp(data, list->name))
-		{
-			free(data);
 			return (1);
-		}
 		while (list->next)
 		{
 			if ((list->next->x == x && list->next->y == y) ||
 							!ft_strcmp(data, list->next->name))
-			{
-				free(data);
 				return (1);
-			}
 			list = list->next;
 		}
 		list->next = ft_create_room(data, x, y);

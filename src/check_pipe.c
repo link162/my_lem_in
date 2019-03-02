@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/21 16:45:21 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 17:09:43 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int		find_connect_room(t_lem *lem, char *line)//
 	error_case(lem);
 	return (0);
 }
-
-
-
 
 t_pipe	*ft_create_pipe(char *data)
 {
@@ -82,11 +79,7 @@ int		add_pipe_to_struct(t_lem *lem, char *from, char *to)//
 		new = new->next;
 	}
 	if (!new)
-	{
-		free(from);
-		free(to);
 		error_case(lem);
-	}
 	return (0);
 }
 
@@ -96,7 +89,6 @@ void	check_pipe(char *line, t_lem *lem)//
 	char	*from;
 	char	*to;
 
-//	ft_printf("here\n");
 	i = 0;
 	ft_pipe_push_back(&lem->pipes, ft_strdup(line));
 	i = find_connect_room(lem, line);
@@ -111,9 +103,5 @@ void	check_pipe(char *line, t_lem *lem)//
 	ft_bzero(to, i + 1);
 	ft_strncpy(to, line, i);
 	if (add_pipe_to_struct(lem, from, to) || add_pipe_to_struct(lem, to, from))
-	{
-		free(line);
 		error_case(lem);
-	}
-//	ft_printf("lll\n");
 }
