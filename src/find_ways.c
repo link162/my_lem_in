@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/02 17:24:45 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 17:45:18 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	add_way_in_struct(t_lem *lem, t_way *tmp)
 {
 	t_way *way;
+	static int i;
 
+	tmp->number = i++;
 	tmp->next = NULL;
 	way = lem->way;
 	if (!lem->way)

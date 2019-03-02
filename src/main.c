@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/02 17:06:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/02 17:45:46 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_ways(t_lem *lem)
 	tmp = lem->way;
 	while (tmp)
 	{
-		ft_printf("way length %i, ", tmp->length);
+		ft_printf("way %i length %i, ", tmp->number, tmp->length);
 //		step = tmp;
 ///		while (step)
 //		{
