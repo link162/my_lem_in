@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 15:45:01 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/02 16:11:52 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/03 15:27:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_pipe	*add_pipes_in_nbr(t_lem *lem, char *str, t_room *list)
 {
 	t_pipe *pipe;
 
-	if (list)
 	while (list)
 	{
 		if (!(ft_strcmp(list->name, str)))
@@ -62,14 +61,15 @@ t_pipe	*add_pipes_in_nbr(t_lem *lem, char *str, t_room *list)
 
 void	copy_rooms_to_arr(t_lem *lem, t_room *room, int i)
 {
-	t_room *tmp;
-	int z;
+	t_room	*tmp;
+	int		z;
 
 	tmp = room;
 	while (room)
 	{
-		if (!ft_strcmp(room->name, lem->start->name) || !ft_strcmp(room->name, lem->end->name))
-		{	
+		if (!ft_strcmp(room->name, lem->start->name) ||
+				!ft_strcmp(room->name, lem->end->name))
+		{
 			z = !ft_strcmp(room->name, lem->start->name) ? 0 : 1;
 			lem->room[z].name = room->name;
 			lem->room[z].x = room->x;
@@ -88,6 +88,7 @@ void	copy_rooms_to_arr(t_lem *lem, t_room *room, int i)
 		lem->room[i].pipe = add_pipes_in_nbr(lem, lem->room[i].name, tmp);
 }
 
+/*
 void	print_room(t_lem *lem)
 {
 	int i = 0;
@@ -106,12 +107,13 @@ void	print_room(t_lem *lem)
 		i++;
 	}
 }
+*/
 
 void	convert_to_arr(t_lem *lem)
 {
 	int		x;
-	t_room *room;
-	t_room *tmp;
+	t_room	*room;
+	t_room	*tmp;
 
 	room = lem->room;
 	lem->rooms = count_room(room);

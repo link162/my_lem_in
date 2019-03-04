@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/02 17:45:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/03 19:52:16 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	map_init(t_lem *lem)
 {
+	lem->index = -1;
 	lem->ants = 0;
 	lem->rooms = 0;
 	lem->ways = 1;
@@ -22,6 +23,7 @@ void	map_init(t_lem *lem)
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
+	lem->groups = 0;
 }
 
 void	check_errors(t_lem *lem)
@@ -47,20 +49,29 @@ void	print_ways(t_lem *lem)
 {
 	t_way *tmp;
 	t_way *step;
+	t_group *group;
+	int i = 0;
 
-	tmp = lem->way;
-	while (tmp)
+	group = lem->group;
+	ft_printf("global index %i\n", lem->index);
+/*	while (i < lem->groups)
 	{
-		ft_printf("way %i length %i, ", tmp->number, tmp->length);
-//		step = tmp;
-///		while (step)
-//		{
-//			ft_printf("%i ", step->id);
-//			step = step->step;
-//		}
-		tmp = tmp->next;
-		ft_putchar('\n');
-	}
+		ft_printf("group %i, index %i include ways\n", i, lem->group[i].index);
+		tmp = lem->group[i].way;
+		while (tmp)
+		{
+			ft_printf("way length %i --", tmp->length);
+			step = tmp;
+			while (step)
+			{
+				ft_printf("%i, ", step->id);
+				step = step->step;
+			}
+			ft_putchar('\n');
+			tmp = tmp->next;
+		}
+		i++;
+	}*/
 }
 
 int		main(void)
