@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:10:06 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 15:58:01 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:42:47 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		check_room_in_way(t_lem *lem, t_way **queue, t_way *way, int id)
 	while (pipe)
 	{
 		if (!is_room_in_way(way, pipe->id))
+			//&& lem->room[id].index >= lem->room[pipe->id].index)
 		{
 			if (i == 0)
 			{

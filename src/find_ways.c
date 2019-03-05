@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 16:00:34 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:28:26 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void	cycle_way(t_lem *lem, t_way *queue)
 		tmp = queue;
 		while (tmp)
 		{
-			if (lem->index > 0 && tmp->length >= lem->index)
-				if (del_queue(&queue, lem))
-					return ;
+//			if (lem->index > 0 && tmp->length >= lem->index)
+//				if (del_queue(&queue, lem))
+//					return ;
 			if (check_all_way(lem, &tmp, &queue, &prev))
 				continue ;
 			prev = tmp;

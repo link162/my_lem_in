@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 16:14:59 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:27:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_ways(t_lem *lem)
 			step = tmp;
 			while (step)
 			{
-				ft_printf("%s, ", lem->room[step->id].name);
+//				ft_printf("%s, ", lem->room[step->id].name);
 				step = step->step;
 			}
 			ft_putchar('\n');
