@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/03 19:52:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 09:49:32 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ int		main(void)
 	convert_to_arr(&lem);
 	find_ways(&lem);
 	print_ways(&lem);
-	system("leaks lem-in");
+//	system("leaks lem-in");
 }

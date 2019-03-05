@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/04 15:59:39 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/04 16:16:08 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int		check_all_way(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
 		step = step->step;
 		i++;
 	}
-	ft_printf("^^^%i\n", i);
+//	ft_printf("^^^%i\n", i);
 	if (!check_room_in_way(lem, queue, *tmp, step->id))
 	{
-		ft_printf("delete way\n");
+//		ft_printf("delete way\n");
 		step = (*tmp)->next;
 		del_way(*tmp);
 		if (*tmp == *queue)

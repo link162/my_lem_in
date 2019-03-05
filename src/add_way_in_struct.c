@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 14:54:21 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/04 15:35:13 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 09:49:21 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		try_add_way_to_group(t_lem *lem, t_way *tmp)
 	{
 		if (!cmp_way_with_group(&lem->group[i], tmp))
 		{
-			ft_printf("add way to group %i\n", i);
+//			ft_printf("add way to group %i\n", i);
 			way = lem->group[i].way;
 			lem->group[i].ways++;
 			while (way->next)
@@ -119,7 +119,7 @@ int		try_add_way_to_group(t_lem *lem, t_way *tmp)
 
 void	first_way_in_group(t_lem *lem, int i, t_way *tmp)
 {
-	ft_printf("create group %i\n", i);
+//	ft_printf("create group %i\n", i);
 	lem->groups++;
 	lem->group[i].way = tmp;
 	lem->group[i].ways = 1;
