@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:10:06 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/03 15:20:18 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 15:58:01 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_way	*create_way(int id, int length)
 
 void	add_room_to_way(t_lem *lem, t_way *way, int id)
 {
-	if (id == lem->room[0].id)
+	if (id == 0)
 		way->done = 1;
 	way->length++;
 	while (way->step)

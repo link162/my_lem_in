@@ -6,7 +6,7 @@
 #    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/03/03 14:54:02 by ybuhai           ###   ########.fr        #
+#    Updated: 2019/03/05 13:27:45 by ybuhai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC			=	$(SRC_D)main.c \
 				$(SRC_D)find_ways.c \
 				$(SRC_D)check_room_in_way.c \
 				$(SRC_D)add_way_in_struct.c \
+				$(SRC_D)set_index.c \
 
 OBJ_D		=	obj/
 OBJ			=	$(addprefix $(OBJ_D), $(SRC:.c=.o))

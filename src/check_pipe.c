@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/02 17:09:43 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 13:34:43 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		find_connect_room(t_lem *lem, char *line)//
 	return (0);
 }
 
-t_pipe	*ft_create_pipe(char *data)
+t_pipe	*ft_create_pipe(char *data, int id)
 {
 	t_pipe	*list;
 
@@ -35,6 +35,7 @@ t_pipe	*ft_create_pipe(char *data)
 	list = malloc(sizeof(t_pipe));
 	if (list)
 	{
+		list->id = id;
 		list->connect = data;
 		list->next = NULL;
 	}
@@ -56,10 +57,10 @@ int		ft_pipe_push_back(t_pipe **tmp, char *data)//
 				return (1);
 			list = list->next;
 		}
-		list->next = ft_create_pipe(data);
+		list->next = ft_create_pipe(data, -1);
 	}
 	else
-		(*tmp) = ft_create_pipe(data);
+		(*tmp) = ft_create_pipe(data, -1);
 	return (0);
 }
 

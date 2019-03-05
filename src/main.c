@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 09:49:32 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:14:59 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,42 @@ void	print_ways(t_lem *lem)
 
 	group = lem->group;
 	ft_printf("global index %i\n", lem->index);
-/*	while (i < lem->groups)
+	while (i < lem->groups)
 	{
 		ft_printf("group %i, index %i include ways\n", i, lem->group[i].index);
 		tmp = lem->group[i].way;
 		while (tmp)
 		{
-			ft_printf("way length %i --", tmp->length);
+			ft_printf("way length %i - ", tmp->length);
 			step = tmp;
 			while (step)
 			{
-				ft_printf("%i, ", step->id);
+				ft_printf("%s, ", lem->room[step->id].name);
 				step = step->step;
 			}
 			ft_putchar('\n');
 			tmp = tmp->next;
 		}
 		i++;
-	}*/
+	}
+}
+
+void	print_rooms(t_lem *lem)
+{
+	int i = -1;
+	t_pipe *pipe;
+
+	while (++i < lem->rooms)
+	{
+		ft_printf("room \"%s\" id %i index %i connect to ", lem->room[i].name, i, lem->room[i].index);
+		pipe = lem->room[i].pipe;
+		while (pipe)
+		{
+			ft_printf("%s ", lem->room[pipe->id].name);
+			pipe = pipe->next;
+		}
+		ft_putchar('\n');
+	}
 }
 
 int		main(void)
@@ -83,6 +101,9 @@ int		main(void)
 	add_pipes_to_rooms(&lem);
 	check_errors(&lem);
 	convert_to_arr(&lem);
+//	print_rooms(&lem);
+	set_index(&lem);
+	print_rooms(&lem);
 	find_ways(&lem);
 	print_ways(&lem);
 //	system("leaks lem-in");

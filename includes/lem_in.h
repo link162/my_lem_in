@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/04 14:14:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/05 15:30:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ typedef struct		s_pipe
 
 typedef struct		s_room
 {
-	int				id;
+	int				vizit;
 	int				x;
 	int				y;
+	int				index;
 	char			*name;
 	t_pipe			*pipe;
 	struct s_room	*next;
@@ -74,5 +75,7 @@ void				find_ways(t_lem *lem);
 void				del_way(t_way *way);
 int					check_room_in_way(t_lem *l, t_way **q, t_way *w, int i);
 t_way				*create_way(int id, int length);
+t_pipe				*ft_create_pipe(char *data, int id);
+void				set_index(t_lem *lem);
 
 #endif
