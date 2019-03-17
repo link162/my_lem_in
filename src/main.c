@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 16:27:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:08:17 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	map_init(t_lem *lem)
 	lem->index = -1;
 	lem->ants = 0;
 	lem->rooms = 0;
-	lem->ways = 1;
+	lem->ways = 0;
 	lem->way = NULL;
 	lem->pipes = NULL;
 	lem->room = NULL;
 	lem->start = NULL;
 	lem->end = NULL;
 	lem->groups = 0;
+	lem->big_group = NULL;
+	lem->group = NULL;
 }
 
 void	check_errors(t_lem *lem)
@@ -45,66 +47,53 @@ void	check_errors(t_lem *lem)
 	}
 }
 
-void	print_ways(t_lem *lem)
+void	clear_groups(t_lem *lem)
 {
+	int i;
+	t_way *way;
 	t_way *tmp;
-	t_way *step;
-	t_group *group;
-	int i = 0;
 
-	group = lem->group;
-	ft_printf("global index %i\n", lem->index);
+	i = 0;
 	while (i < lem->groups)
 	{
-		ft_printf("group %i, index %i include ways\n", i, lem->group[i].index);
-		tmp = lem->group[i].way;
-		while (tmp)
+		while (lem->group[i].way)
 		{
-			ft_printf("way length %i - ", tmp->length);
-			step = tmp;
-			while (step)
+			way = lem->group[i].way->next;
+			while (lem->group[i].way)
 			{
-//				ft_printf("%s, ", lem->room[step->id].name);
-				step = step->step;
+				tmp = lem->group[i].way->step;
+				free(lem->group[i].way);
+				lem->group[i].way = tmp;
 			}
-			ft_putchar('\n');
-			tmp = tmp->next;
+			lem->group[i].way = way;
 		}
 		i++;
 	}
+	free(lem->group);
 }
-
-void	print_rooms(t_lem *lem)
-{
-	int i = -1;
-	t_pipe *pipe;
-
-	while (++i < lem->rooms)
-	{
-		ft_printf("room \"%s\" id %i index %i connect to ", lem->room[i].name, i, lem->room[i].index);
-		pipe = lem->room[i].pipe;
-		while (pipe)
-		{
-			ft_printf("%s ", lem->room[pipe->id].name);
-			pipe = pipe->next;
-		}
-		ft_putchar('\n');
-	}
-}
-
 int		main(void)
 {
 	t_lem	lem;
+	int i;
 
+	i = -1;
 	map_init(&lem);
 	read_data(&lem, 0);
 	add_pipes_to_rooms(&lem);
 	check_errors(&lem);
 	convert_to_arr(&lem);
-//	print_rooms(&lem);
-	set_index(&lem);
-	print_rooms(&lem);
-	find_ways(&lem);
-	print_ways(&lem);
-//	system("leaks lem-in");
+	algorithm_big(&lem);
+	if (lem.ways < GROUP)
+	{
+		find_ways(&lem);
+		if (lem.index > lem.big_group->index)
+			print_lem(&lem, lem.big_group);
+		else
+			while (++i < lem.groups)
+				if (lem.group[i].index == lem.index)
+					print_lem(&lem, &lem.group[i]);
+	}
+	else
+		print_lem(&lem, lem.group);
+	system("leaks lem-in");
 }

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 14:03:01 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:11:36 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		ft_room_push_back(t_lem *lem, char *data, int x, int y)
 	return (0);
 }
 
-void	check_command(char *line, t_lem *lem, char *str)//
+void	check_command(char *line, t_lem *lem, char *str)
 {
 	if (!ft_strcmp(line, "##start"))
 	{
@@ -184,8 +184,6 @@ void	check_command(char *line, t_lem *lem, char *str)//
 void	read_data(t_lem *lem, int i)
 {
 	char	*l;
-	int room = 0;
-	int pipe = 0;
 
 	while (get_next_line(0, &l) > 0)
 	{
@@ -200,18 +198,13 @@ void	read_data(t_lem *lem, int i)
 		}
 		else if (indicate_room(l, 0, 0))
 		{
-			room++;
 			if (ft_room_push_back(lem, dup_room(l), dup_x(l), dup_y(l)))
 				error_case(lem);
 		}
 		else if (ft_strchr(l, '-'))
-		{
 			check_pipe(l, lem);
-			pipe++;
-		}
 		else
 			error_case(lem);
 		free(l);
 	}
-	ft_printf("roms- %i \npipes - %i\n", room, pipe);
 }

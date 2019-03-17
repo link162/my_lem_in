@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 13:34:43 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:07:10 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		find_connect_room(t_lem *lem, char *line)//
+int		find_connect_room(t_lem *lem, char *line)
 {
 	t_room *room;
 
@@ -42,7 +42,7 @@ t_pipe	*ft_create_pipe(char *data, int id)
 	return (list);
 }
 
-int		ft_pipe_push_back(t_pipe **tmp, char *data)//
+int		ft_pipe_push_back(t_pipe **tmp, char *data)
 {
 	t_pipe *list;
 
@@ -64,7 +64,7 @@ int		ft_pipe_push_back(t_pipe **tmp, char *data)//
 	return (0);
 }
 
-int		add_pipe_to_struct(t_lem *lem, char *from, char *to)//
+int		add_pipe_to_struct(t_lem *lem, char *from, char *to)
 {
 	t_room *new;
 
@@ -84,7 +84,7 @@ int		add_pipe_to_struct(t_lem *lem, char *from, char *to)//
 	return (0);
 }
 
-void	check_pipe(char *line, t_lem *lem)//
+void	check_pipe(char *line, t_lem *lem)
 {
 	int		i;
 	char	*from;

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 16:28:26 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 17:40:39 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,9 @@ int		check_all_way(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
 	}
 	step = *tmp;
 	while (step->step)
-	{
 		step = step->step;
-		i++;
-	}
-//	ft_printf("^^^%i, %s\n", i, lem->room[step->id].name);
 	if (!check_room_in_way(lem, queue, *tmp, step->id))
 	{
-//		ft_printf("delete way\n");
 		step = (*tmp)->next;
 		del_way(*tmp);
 		if (*tmp == *queue)
@@ -71,12 +66,10 @@ int		del_queue(t_way **queue, t_lem *lem)
 		step = (*queue)->step;
 		while (step)
 		{
-//			ft_printf("%s ", lem->room[step->id].name);
 			way = step->step;
 			free(step);
 			step = way;
 		}
-//		ft_printf("\n");
 		free(*queue);
 		*queue = tmp;
 	}
@@ -87,12 +80,11 @@ void	cycle_way(t_lem *lem, t_way *queue)
 {
 	t_way *tmp;
 	t_way *prev;
-
+	
 	while (queue)
 	{
 		if (queue->done)
 		{
-//			ft_printf("done\n");
 			tmp = queue->next;
 			add_way_in_struct(lem, queue);
 			queue = tmp;
@@ -101,9 +93,9 @@ void	cycle_way(t_lem *lem, t_way *queue)
 		tmp = queue;
 		while (tmp)
 		{
-//			if (lem->index > 0 && tmp->length >= lem->index)
-//				if (del_queue(&queue, lem))
-//					return ;
+			if (lem->index > 0 && tmp->length >= lem->index)
+				if (del_queue(&queue, lem))
+					return ;
 			if (check_all_way(lem, &tmp, &queue, &prev))
 				continue ;
 			prev = tmp;
@@ -116,6 +108,10 @@ void	find_ways(t_lem *lem)
 {
 	t_way *new;
 
+	clear_index_room(lem);
+	lem->way = NULL;
+	lem->big_group = lem->group;
+	lem->group = NULL;
 	new = create_way(1, 0);
 	cycle_way(lem, new);
 }

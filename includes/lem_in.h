@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 16:56:53 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:05:20 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct		s_room
 typedef	struct		s_way
 {
 	int				done;
-	int				number;
 	int				id;
+	int				ant;
 	int				length;
 	struct s_way	*step;
 	struct s_way	*next;
@@ -63,6 +63,7 @@ typedef struct		s_lem
 	t_room			*start;
 	t_room			*end;
 	t_group			*group;
+	t_group			*big_group;
 }					t_lem;
 
 void				add_way_in_struct(t_lem *lem, t_way *way);
@@ -73,6 +74,10 @@ void				add_pipes_to_rooms(t_lem *lem);
 void				convert_to_arr(t_lem *lem);
 void				find_ways(t_lem *lem);
 void				del_way(t_way *way);
+void				clear_index_room(t_lem *lem);
+void				count_group_index(t_lem *lem, int i);
+void				algorithm_big(t_lem *lem);
+void				print_lem(t_lem *lem, t_group *group);
 int					check_room_in_way(t_lem *l, t_way **q, t_way *w, int i);
 t_way				*create_way(int id, int length);
 t_pipe				*ft_create_pipe(char *data, int id);
