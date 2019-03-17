@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:05:20 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 19:11:16 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void				print_lem(t_lem *lem, t_group *group);
 int					check_room_in_way(t_lem *l, t_way **q, t_way *w, int i);
 t_way				*create_way(int id, int length);
 t_pipe				*ft_create_pipe(char *data, int id);
-void				set_index(t_lem *lem);
+void				set_index(t_lem *lem, t_pipe *tmp);
+int					cmp_way_with_group(t_group *group, t_way *way);
+int					count_steps(t_way *way, int length);
+char				*dup_room(char *str);
+int					dup_x(char *str);
+int					dup_y(char *str);
 
 #endif

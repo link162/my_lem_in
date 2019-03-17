@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:08:17 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:49:20 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	check_errors(t_lem *lem)
 
 void	clear_groups(t_lem *lem)
 {
-	int i;
-	t_way *way;
-	t_way *tmp;
+	int		i;
+	t_way	*way;
+	t_way	*tmp;
 
 	i = 0;
 	while (i < lem->groups)
@@ -71,10 +71,11 @@ void	clear_groups(t_lem *lem)
 	}
 	free(lem->group);
 }
+
 int		main(void)
 {
 	t_lem	lem;
-	int i;
+	int		i;
 
 	i = -1;
 	map_init(&lem);

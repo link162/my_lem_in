@@ -6,84 +6,11 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:11:36 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 19:11:33 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int		dup_y(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	if (str[i] == ' ')
-		return (ft_atoi(&str[i]));
-	return (0);
-}
-
-int		dup_x(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	if (str[i] == ' ')
-		return (ft_atoi(&str[i]));
-	return (0);
-}
-
-char	*dup_room(char *str)
-{
-	int		i;
-	char	*res;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	while (str[i] == ' ')
-		i--;
-	res = (char *)malloc(sizeof(char) * (i + 2));
-	ft_strncpy(res, str, i + 1);
-	res[i + 1] = '\0';
-	return (res);
-}
 
 int		indicate_room(char *str, int i, int x)
 {

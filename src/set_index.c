@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:28:05 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:08:56 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:53:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,14 @@ void	vizit_to_null(t_lem *lem)
 			lem->room[i].vizit = 0;
 			lem->room[i].index = 0;
 		}
+	lem->room[0].vizit = 1;
 }
 
-void	set_index(t_lem *lem)
+void	set_index(t_lem *lem, t_pipe *tmp)
 {
 	t_pipe	*queue;
-	t_pipe	*tmp;
 
 	vizit_to_null(lem);
-	lem->room[0].vizit = 1;
 	queue = ft_create_pipe(NULL, 0);
 	while (queue)
 	{
@@ -73,5 +72,5 @@ void	clear_index_room(t_lem *lem)
 		lem->room[i].index = 0;
 		lem->room[i].vizit = 0;
 	}
-	set_index(lem);
+	set_index(lem, NULL);
 }

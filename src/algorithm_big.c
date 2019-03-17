@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:42:44 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:18:02 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 19:05:49 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,15 @@ void	add_way(t_lem *lem, t_way *way)
 
 void	find_best_room(t_lem *lem, int id, t_way *way)
 {
-	int			best;
-	static int	f;
-	int			candidat;
-	t_pipe		*pipe;
+	int		best;
+	int		candidat;
+	t_pipe	*pipe;
 
 	candidat = 0;
 	pipe = lem->room[id].pipe;
 	best = 1000000;
 	while (pipe)
 	{
-//		if (id == 1 && pipe->id == 0 && f)
-//			;
 		if (lem->room[pipe->id].index < best &&
 				lem->room[pipe->id].vizit != 9)
 		{
@@ -49,8 +46,6 @@ void	find_best_room(t_lem *lem, int id, t_way *way)
 		}
 		pipe = pipe->next;
 	}
-//	if (id == 1 && candidat == 0 && !f)
-//		f++;
 	way->step = create_way(candidat, 0);
 	if (candidat)
 	{
@@ -90,7 +85,7 @@ void	delete_short(t_lem *lem)
 			free(pipe->next->connect);
 			free(pipe->next);
 			pipe->next = tmp;
-			return;
+			return ;
 		}
 		pipe = pipe->next;
 	}
@@ -104,7 +99,7 @@ void	algorithm_big(t_lem *lem)
 	{
 		if (i)
 			delete_short(lem);
-		set_index(lem);
+		set_index(lem, NULL);
 		if (lem->room[1].index == 0)
 			break ;
 		if (lem->room[1].index == 1)

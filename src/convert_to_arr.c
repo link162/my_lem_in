@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 15:45:01 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/05 14:08:18 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:57:06 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,6 @@ void	copy_rooms_to_arr(t_lem *lem, t_room *room, int i)
 		lem->room[i].pipe = add_pipes_in_nbr(lem, lem->room[i].name, tmp);
 }
 
-/*
-void	print_room(t_lem *lem)
-{
-	int i = 0;
-	t_pipe *pipe;
-
-	while (i < lem->rooms)
-	{
-		ft_printf("id %i room %s, connect to ", i, lem->room[i].name);
-		pipe = lem->room[i].pipe;
-		while (pipe)
-		{
-			ft_printf("id %i name %s || ", pipe->id, pipe->connect);
-			pipe = pipe->next;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-*/
-
 void	convert_to_arr(t_lem *lem)
 {
 	int		x;
@@ -125,5 +104,4 @@ void	convert_to_arr(t_lem *lem)
 		free(room);
 		room = tmp;
 	}
-//	print_room(lem);
 }

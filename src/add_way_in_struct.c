@@ -6,52 +6,11 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 14:54:21 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:06:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 19:07:44 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int		cmp_way_with_group(t_group *group, t_way *way)
-{
-	t_way *tmp;
-	t_way *step;
-	t_way *new;
-
-	tmp = group->way;
-	while (tmp)
-	{
-		step = tmp->step;
-		while (step->step)
-		{
-			new = way->step;
-			while (new->step)
-			{
-				if (new->id == step->id)
-					return (1);
-				new = new->step;
-			}
-			step = step->step;
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-int		count_steps(t_way *way, int length)
-{
-	int res;
-
-	res = 0;
-	while (way)
-	{
-		if (way->done == -1)
-			break ;
-		res += length - way->length;
-		way = way->next;
-	}
-	return (res);
-}
 
 void	set_all_index(t_lem *lem, int i)
 {

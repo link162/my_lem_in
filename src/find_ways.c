@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 17:40:39 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 18:56:03 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	del_way(t_way *way)
 
 int		check_all_way(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
 {
-	t_way *step;
-	int i = 0;
+	t_way	*step;
 
 	if ((*tmp)->done)
 	{
@@ -80,7 +79,7 @@ void	cycle_way(t_lem *lem, t_way *queue)
 {
 	t_way *tmp;
 	t_way *prev;
-	
+
 	while (queue)
 	{
 		if (queue->done)

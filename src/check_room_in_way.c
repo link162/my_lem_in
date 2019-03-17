@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:10:06 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/15 20:25:50 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/17 19:05:27 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ int		check_room_in_way(t_lem *lem, t_way **queue, t_way *way, int id)
 	t_way	*tmp;
 	t_pipe	*pipe;
 	int		i;
-	int c;
 
-	c = 0;
 	i = 0;
 	tmp = way;
 	pipe = lem->room[id].pipe;
@@ -87,10 +85,7 @@ int		check_room_in_way(t_lem *lem, t_way **queue, t_way *way, int id)
 				i++;
 			}
 			else
-			{
-				c++;
 				clone_without_last(queue, way, pipe->id);
-			}
 		}
 		pipe = pipe->next;
 	}
