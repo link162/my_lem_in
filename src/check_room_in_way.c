@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:10:06 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/19 12:47:30 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 15:12:26 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	clone_without_last(t_way **queue, t_way *way, int id)
 	new = create_way(way->id, way->length);
 	tmp = new;
 	way = way->step;
+//	if (id == 0)
+//		new->done = 1;
 	while (way->step)
 	{
 		new->step = create_way(way->id, 0);
@@ -51,6 +53,7 @@ void	clone_without_last(t_way **queue, t_way *way, int id)
 		way = way->step;
 	}
 	new->step = create_way(id, 0);
+	if (id == 1)
 	tmp->next = *queue;
 	*queue = tmp;
 }
@@ -85,7 +88,10 @@ int		check_room_in_way(t_lem *lem, t_way **queue, t_way *way, int id)
 				i++;
 			}
 			else
+			{
+				ft_printf("clone\n");
 				clone_without_last(queue, way, pipe->id);
+			}
 		}
 		pipe = pipe->next;
 	}

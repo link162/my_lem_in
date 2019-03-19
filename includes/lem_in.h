@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/19 12:41:54 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 13:29:26 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				add_pipes_to_rooms(t_lem *lem);
 void				check_command_end(char *line, t_lem *lem, char *str);
 void				convert_to_arr(t_lem *lem);
 void				find_ways(t_lem *lem);
-void				del_way(t_way **way);
+void				del_way(t_way *way);
 void				clear_index_room(t_lem *lem);
 void				count_group_index(t_lem *lem, int i);
 void				algorithm_big(t_lem *lem);

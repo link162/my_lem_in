@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/18 16:40:10 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 15:04:41 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	read_data(t_lem *lem, int i)
 
 	while (get_next_line(0, &l) > 0)
 	{
-		ft_printf("here\n");
 		if (l[0] == 'L')
 			error_case(lem);
 		if (l[0] == '#')
