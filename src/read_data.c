@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:16:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:11:33 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 16:40:10 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +80,26 @@ int		ft_room_push_back(t_lem *lem, char *data, int x, int y)
 	return (0);
 }
 
-void	check_command(char *line, t_lem *lem, char *str)
+void	check_command(char *line, t_lem *lem, char *s)
 {
 	if (!ft_strcmp(line, "##start"))
 	{
-		get_next_line(0, &str);
-		if (indicate_room(str, 0, 0))
+		while (get_next_line(0, &s) > 0)
 		{
-			lem->start = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
-			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
-			free(str);
+			if (indicate_room(s, 0, 0))
+			{
+				lem->start = ft_create_room(dup_room(s), dup_x(s), dup_y(s));
+				ft_room_push_back(lem, dup_room(s), dup_x(s), dup_y(s));
+				free(s);
+				return ;
+			}
+			else if (s[0] != '#')
+				error_case(lem);
+			free(s);
 		}
-		else
-			error_case(lem);
+		error_case(lem);
 	}
-	else if (!ft_strcmp(line, "##end"))
-	{
-		get_next_line(0, &str);
-		if (indicate_room(str, 0, 0))
-		{
-			lem->end = ft_create_room(dup_room(str), dup_x(str), dup_y(str));
-			ft_room_push_back(lem, dup_room(str), dup_x(str), dup_y(str));
-			free(str);
-		}
-		else
-			error_case(lem);
-	}
+	check_command_end(line, lem, s);
 }
 
 void	read_data(t_lem *lem, int i)
@@ -114,15 +108,13 @@ void	read_data(t_lem *lem, int i)
 
 	while (get_next_line(0, &l) > 0)
 	{
+		ft_printf("here\n");
 		if (l[0] == 'L')
 			error_case(lem);
 		if (l[0] == '#')
 			check_command(l, lem, NULL);
 		else if (lem->ants == 0 && i == 0)
-		{
-			lem->ants = ft_atoi(l);
-			i++;
-		}
+			check_ants(lem, l, i++);
 		else if (indicate_room(l, 0, 0))
 		{
 			if (ft_room_push_back(lem, dup_room(l), dup_x(l), dup_y(l)))
@@ -131,7 +123,10 @@ void	read_data(t_lem *lem, int i)
 		else if (ft_strchr(l, '-'))
 			check_pipe(l, lem);
 		else
-			error_case(lem);
+		{
+			free(l);
+			return ;
+		}
 		free(l);
 	}
 }

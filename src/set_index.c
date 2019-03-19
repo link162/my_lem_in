@@ -6,11 +6,32 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 13:28:05 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:53:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 16:30:04 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	check_command_end(char *line, t_lem *lem, char *s)
+{
+	if (!ft_strcmp(line, "##end"))
+	{
+		while (get_next_line(0, &s) > 0)
+		{
+			if (indicate_room(s, 0, 0))
+			{
+				lem->end = ft_create_room(dup_room(s), dup_x(s), dup_y(s));
+				ft_room_push_back(lem, dup_room(s), dup_x(s), dup_y(s));
+				free(s);
+				return ;
+			}
+			else if (s[0] != '#')
+				error_case(lem);
+			free(s);
+		}
+		error_case(lem);
+	}
+}
 
 void	add_to_queue(t_pipe *queue, int id)
 {

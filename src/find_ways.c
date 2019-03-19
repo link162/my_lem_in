@@ -6,21 +6,21 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 16:53:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:56:03 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 12:49:49 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	del_way(t_way *way)
+void	del_way(t_way **way)
 {
 	t_way *tmp;
 
-	while (way)
+	while (*way)
 	{
-		tmp = way->step;
-		free(way);
-		way = tmp;
+		tmp = (*way)->step;
+		free(*way);
+		*way = tmp;
 	}
 }
 
@@ -42,7 +42,7 @@ int		check_all_way(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
 	if (!check_room_in_way(lem, queue, *tmp, step->id))
 	{
 		step = (*tmp)->next;
-		del_way(*tmp);
+		del_way(tmp);
 		if (*tmp == *queue)
 			*queue = step;
 		else
@@ -53,7 +53,7 @@ int		check_all_way(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
 	return (0);
 }
 
-int		del_queue(t_way **queue, t_lem *lem)
+int		del_queue(t_way **queue)
 {
 	t_way *tmp;
 	t_way *step;
@@ -82,6 +82,7 @@ void	cycle_way(t_lem *lem, t_way *queue)
 
 	while (queue)
 	{
+		prev = queue;
 		if (queue->done)
 		{
 			tmp = queue->next;
@@ -93,8 +94,10 @@ void	cycle_way(t_lem *lem, t_way *queue)
 		while (tmp)
 		{
 			if (lem->index > 0 && tmp->length >= lem->index)
-				if (del_queue(&queue, lem))
+			{
+				if (del_queue(&queue))
 					return ;
+			}
 			if (check_all_way(lem, &tmp, &queue, &prev))
 				continue ;
 			prev = tmp;
@@ -102,6 +105,7 @@ void	cycle_way(t_lem *lem, t_way *queue)
 		}
 	}
 }
+
 
 void	find_ways(t_lem *lem)
 {

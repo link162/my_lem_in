@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:08:36 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/02/16 15:40:08 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 15:12:24 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	add_pipes_to_rooms(t_lem *lem)
 	new = lem->room;
 	while (new)
 	{
-		if (!ft_strcmp(new->name, lem->start->name))
+		if (!ft_strcmp(new->name, lem->start->name) && new->pipe)
 		{
 			lem->start->pipe = copy_list_pipes(new->pipe);
 			break ;
@@ -51,7 +51,7 @@ void	add_pipes_to_rooms(t_lem *lem)
 	new = lem->room;
 	while (new)
 	{
-		if (!strcmp(new->name, lem->end->name))
+		if (!strcmp(new->name, lem->end->name) && new->pipe)
 		{
 			lem->end->pipe = copy_list_pipes(new->pipe);
 			break ;

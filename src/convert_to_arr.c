@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 15:45:01 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:57:06 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 16:04:56 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	copy_rooms_to_arr(t_lem *lem, t_room *room, int i)
 
 void	convert_to_arr(t_lem *lem)
 {
-	int		x;
 	t_room	*room;
 	t_room	*tmp;
 

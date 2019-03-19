@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 14:54:21 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:07:44 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 12:42:18 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	first_way_in_group(t_lem *lem, int i, t_way *tmp)
 
 void	add_way_in_struct(t_lem *lem, t_way *tmp)
 {
-	t_way		*way;
 	static int	i;
 
 	tmp->next = NULL;
@@ -101,6 +100,6 @@ void	add_way_in_struct(t_lem *lem, t_way *tmp)
 		if (i < GROUP)
 			first_way_in_group(lem, i++, tmp);
 		else
-			del_way(tmp);
+			del_way(&tmp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:11:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 12:41:54 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,20 @@ void				error_case(t_lem *lem);
 void				check_pipe(char *line, t_lem *lem);
 void				read_data(t_lem *lem, int i);
 void				add_pipes_to_rooms(t_lem *lem);
+void				check_command_end(char *line, t_lem *lem, char *str);
 void				convert_to_arr(t_lem *lem);
 void				find_ways(t_lem *lem);
-void				del_way(t_way *way);
+void				del_way(t_way **way);
 void				clear_index_room(t_lem *lem);
 void				count_group_index(t_lem *lem, int i);
 void				algorithm_big(t_lem *lem);
+void				check_ants(t_lem *lem, char *str, int i);
 void				print_lem(t_lem *lem, t_group *group);
+int					indicate_room(char *str, int i, int x);
+int					ft_room_push_back(t_lem *lem, char *data, int x, int y);
 int					check_room_in_way(t_lem *l, t_way **q, t_way *w, int i);
 t_way				*create_way(int id, int length);
+t_room				*ft_create_room(char *data, int x, int y);
 t_pipe				*ft_create_pipe(char *data, int id);
 void				set_index(t_lem *lem, t_pipe *tmp);
 int					cmp_way_with_group(t_group *group, t_way *way);

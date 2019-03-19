@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:22:47 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:07:26 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 16:04:31 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_case(t_lem *lem)
 {
+	lem->ants++;
 	ft_printf("ERROR\n");
 	exit(1);
 }
@@ -56,5 +57,34 @@ int		count_steps(t_way *way, int length)
 		res += length - way->length;
 		way = way->next;
 	}
+	return (res);
+}
+
+char	*dup_room(char *str)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	while (ft_isdigit(str[i]))
+		i--;
+	if (str[i] == '-')
+		i--;
+	while (str[i] == ' ')
+		i--;
+	res = (char *)malloc(sizeof(char) * (i + 2));
+	ft_strncpy(res, str, i + 1);
+	res[i + 1] = '\0';
 	return (res);
 }

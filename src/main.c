@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:49:20 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 11:54:16 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,14 @@ void	map_init(t_lem *lem)
 	lem->groups = 0;
 	lem->big_group = NULL;
 	lem->group = NULL;
+	lem->pipes = NULL;
 }
 
 void	check_errors(t_lem *lem)
 {
 	t_room *room;
 
-	if (lem->ants < 1)
-		error_case(lem);
-	if (!lem->start)
-		error_case(lem);
-	if (!lem->end)
+	if (lem->ants < 1 || !lem->start || !lem->end || !lem->room || !lem->pipes)
 		error_case(lem);
 	room = lem->room;
 	while (room)
@@ -72,6 +69,28 @@ void	clear_groups(t_lem *lem)
 	free(lem->group);
 }
 
+void	check_ants(t_lem *lem, char *str, int i)
+{
+	i = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	if (!str[i])
+		lem->ants = ft_atoi(str);
+	else
+		error_case(lem);
+}
+
+void	print_room(t_lem *lem)
+{
+	int i = 0;
+
+	while (i < lem->rooms)
+	{
+		ft_printf("room %s id %i\n", lem->room[i].name, i);
+		i++;
+	}
+}
+
 int		main(void)
 {
 	t_lem	lem;
@@ -86,9 +105,13 @@ int		main(void)
 	algorithm_big(&lem);
 	if (lem.ways < GROUP)
 	{
+		print_room(&lem);
 		find_ways(&lem);
-		if (lem.index > lem.big_group->index)
+		if (lem.index > lem.big_group->index || lem.index == -1)
+		{
+			lem.index = lem.big_group->index;
 			print_lem(&lem, lem.big_group);
+		}
 		else
 			while (++i < lem.groups)
 				if (lem.group[i].index == lem.index)

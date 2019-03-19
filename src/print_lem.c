@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:36:30 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:10:26 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/18 16:10:40 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,35 @@ void	print_cycle(t_lem *lem, t_way *way, int *a)
 	}
 }
 
+void	print_field(t_lem *lem)
+{
+	int		i;
+	t_pipe	*pipe;
+
+	i = 1;
+	ft_printf("%i\n##start\n%s %i %i\n##end\n%s %i %i\n", lem->ants,
+			lem->room[0].name, lem->room[0].x, lem->room[0].y,
+			lem->room[1].name, lem->room[1].x, lem->room[1].y);
+	while (++i < lem->rooms)
+		ft_printf("%s %i %i\n", lem->room[i].name, lem->room[i].x,
+				lem->room[i].y);
+	pipe = lem->pipes;
+	while (pipe)
+	{
+		ft_printf("%s\n", pipe->connect);
+		pipe = pipe->next;
+	}
+	ft_putchar('\n');
+}
+
 void	print_lem(t_lem *lem, t_group *group)
 {
 	t_way	*way;
-	t_way	*tmp;
 	int		a;
 	int		z;
 
+	z = group->index;
+	print_field(lem);
 	a = 1;
 	group->way->done = 0;
 	while (group->index--)
@@ -56,6 +78,7 @@ void	print_lem(t_lem *lem, t_group *group)
 		}
 		ft_putchar('\n');
 	}
+	ft_printf("\nLines: %i\n", z);
 }
 
 int		dup_y(char *str)
@@ -100,33 +123,4 @@ int		dup_x(char *str)
 	if (str[i] == ' ')
 		return (ft_atoi(&str[i]));
 	return (0);
-}
-
-char	*dup_room(char *str)
-{
-	int		i;
-	char	*res;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	while (str[i] == ' ')
-		i--;
-	while (ft_isdigit(str[i]))
-		i--;
-	if (str[i] == '-')
-		i--;
-	while (str[i] == ' ')
-		i--;
-	res = (char *)malloc(sizeof(char) * (i + 2));
-	ft_strncpy(res, str, i + 1);
-	res[i + 1] = '\0';
-	return (res);
 }

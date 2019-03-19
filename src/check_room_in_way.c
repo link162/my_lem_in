@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:10:06 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:05:27 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/19 12:47:30 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_way	*create_way(int id, int length)
 	return (way);
 }
 
-void	add_room_to_way(t_lem *lem, t_way *way, int id)
+void	add_room_to_way(t_way *way, int id)
 {
 	if (id == 0)
 		way->done = 1;
@@ -81,7 +81,7 @@ int		check_room_in_way(t_lem *lem, t_way **queue, t_way *way, int id)
 		{
 			if (i == 0)
 			{
-				add_room_to_way(lem, way, pipe->id);
+				add_room_to_way(way, pipe->id);
 				i++;
 			}
 			else
