@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:42:44 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 19:05:49 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/21 09:27:45 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,22 @@ void	add_way(t_lem *lem, t_way *way)
 
 void	find_best_room(t_lem *lem, int id, t_way *way)
 {
-	int		best;
-	int		candidat;
-	t_pipe	*pipe;
+	static int	i;
+	int			candidat;
+	t_pipe		*pipe;
 
-	candidat = 0;
 	pipe = lem->room[id].pipe;
-	best = 1000000;
+	candidat = pipe->id;
 	while (pipe)
 	{
-		if (lem->room[pipe->id].index < best &&
-				lem->room[pipe->id].vizit != 9)
+		if ((lem->room[pipe->id].index < lem->room[candidat].index &&
+				lem->room[pipe->id].vizit != 9) || pipe->id == 0 ||
+				lem->room[candidat].vizit == 9 || (id == 1 && i == 1))
 		{
-			best = lem->room[pipe->id].index;
-			candidat = pipe->id;
+			if (!(i == 1 && id == 1 && pipe->id == 0))
+				candidat = pipe->id;
+			if (i == 0 && id == 1 && pipe->id == 0)
+				i++;
 		}
 		pipe = pipe->next;
 	}
@@ -63,11 +65,12 @@ t_way	*make_way(t_lem *lem)
 	return (new);
 }
 
-void	delete_short(t_lem *lem)
+void	delete_short(t_lem *lem, int *i)
 {
 	t_pipe *pipe;
 	t_pipe *tmp;
 
+	(*i)++;
 	if (lem->room[0].pipe->id == 1)
 	{
 		tmp = lem->room[0].pipe->next;
@@ -93,17 +96,17 @@ void	delete_short(t_lem *lem)
 
 void	algorithm_big(t_lem *lem)
 {
-	static int i;
+	static int	i;
 
 	while (1)
 	{
-		if (i)
-			delete_short(lem);
+		if (i == 5)
+			delete_short(lem, &i);
 		set_index(lem, NULL);
 		if (lem->room[1].index == 0)
 			break ;
 		if (lem->room[1].index == 1)
-			i++;
+			i = 5;
 		add_way(lem, make_way(lem));
 		lem->ways++;
 	}

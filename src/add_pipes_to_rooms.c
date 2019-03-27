@@ -6,11 +6,29 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:08:36 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/18 15:12:24 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/20 14:34:25 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int		check_is_done(t_lem *lem, t_way **tmp, t_way **queue, t_way **prev)
+{
+	t_way *step;
+
+	if ((*tmp)->done)
+	{
+		step = (*tmp)->next;
+		add_way_in_struct(lem, *tmp);
+		if (*tmp == *queue)
+			*queue = step;
+		else
+			(*prev)->next = step;
+		*tmp = step;
+		return (1);
+	}
+	return (0);
+}
 
 t_pipe	*copy_list_pipes(t_pipe *old)
 {
@@ -58,4 +76,19 @@ void	add_pipes_to_rooms(t_lem *lem)
 		}
 		new = new->next;
 	}
+}
+
+void	add_comment(t_pipe **tmp, char *data)
+{
+	t_pipe *list;
+
+	list = *tmp;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+		list->next = ft_create_pipe(data, -1);
+	}
+	else
+		(*tmp) = ft_create_pipe(data, -1);
 }

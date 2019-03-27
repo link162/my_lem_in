@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/19 11:54:16 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/21 09:07:05 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	map_init(t_lem *lem)
 {
+	lem->lines = 1000000;
 	lem->index = -1;
 	lem->ants = 0;
 	lem->rooms = 0;
@@ -36,12 +37,6 @@ void	check_errors(t_lem *lem)
 	if (lem->ants < 1 || !lem->start || !lem->end || !lem->room || !lem->pipes)
 		error_case(lem);
 	room = lem->room;
-	while (room)
-	{
-		if (!room->pipe)
-			error_case(lem);
-		room = room->next;
-	}
 }
 
 void	clear_groups(t_lem *lem)
@@ -80,17 +75,6 @@ void	check_ants(t_lem *lem, char *str, int i)
 		error_case(lem);
 }
 
-void	print_room(t_lem *lem)
-{
-	int i = 0;
-
-	while (i < lem->rooms)
-	{
-		ft_printf("room %s id %i\n", lem->room[i].name, i);
-		i++;
-	}
-}
-
 int		main(void)
 {
 	t_lem	lem;
@@ -103,15 +87,12 @@ int		main(void)
 	check_errors(&lem);
 	convert_to_arr(&lem);
 	algorithm_big(&lem);
-	if (lem.ways < GROUP)
+	if ((lem.lines != 1000000 && lem.lines < lem.group->index - 1)
+			|| lem.ways < GROUP)
 	{
-		print_room(&lem);
 		find_ways(&lem);
 		if (lem.index > lem.big_group->index || lem.index == -1)
-		{
-			lem.index = lem.big_group->index;
 			print_lem(&lem, lem.big_group);
-		}
 		else
 			while (++i < lem.groups)
 				if (lem.group[i].index == lem.index)
@@ -119,5 +100,4 @@ int		main(void)
 	}
 	else
 		print_lem(&lem, lem.group);
-	system("leaks lem-in");
 }

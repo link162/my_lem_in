@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:19:49 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/17 18:07:10 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/20 14:35:10 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	check_pipe(char *line, t_lem *lem)
 	char	*to;
 
 	i = 0;
-	ft_pipe_push_back(&lem->pipes, ft_strdup(line));
+	add_comment(&lem->pipes, ft_strdup(line));
 	i = find_connect_room(lem, line);
 	from = (char *)malloc(sizeof(char) * (i + 1));
 	ft_bzero(from, i + 1);

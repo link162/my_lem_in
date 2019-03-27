@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:36:30 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/03/18 16:10:40 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/03/26 20:12:18 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	print_lem(t_lem *lem, t_group *group)
 		ft_putchar('\n');
 	}
 	ft_printf("\nLines: %i\n", z);
+	if (lem->lines != 1000000)
+		ft_printf("Needs: %i\n", lem->lines);
+	exit(1);
 }
 
 int		dup_y(char *str)
